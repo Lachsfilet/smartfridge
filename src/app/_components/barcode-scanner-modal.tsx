@@ -68,10 +68,10 @@ export function BarcodeScannerModal({
 
           permissionStatus.onchange = handlePermissionChange;
         }
-      } catch (error) {
+      } catch {
         // Permissions API not supported or error occurred
         // User will need to manually enable camera
-        console.log("Camera permission check not available:", error);
+        // Silently fail - this is not a critical error
       }
     };
 
