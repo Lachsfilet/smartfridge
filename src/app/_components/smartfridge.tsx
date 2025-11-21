@@ -30,6 +30,11 @@ export function SmartFridge() {
       void refetch();
     },
   });
+  const openDrinksMutation = api.drink.openDrinks.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
 
   const openedDrinks = drinks?.filter((d) => d.isOpened && d.quantity > 0) ?? [];
   const closedDrinks = drinks?.filter((d) => !d.isOpened && d.quantity > 0) ?? [];
@@ -63,6 +68,13 @@ export function SmartFridge() {
     updateStatusMutation.mutate({
       id,
       isOpened,
+    });
+  };
+
+  const handleOpenDrinks = (id: number, count: number) => {
+    openDrinksMutation.mutate({
+      id,
+      count,
     });
   };
 
@@ -200,6 +212,7 @@ export function SmartFridge() {
           onClose={() => setSelectedDrink(null)}
           onQuantityChange={handleQuantityChange}
           onStatusChange={handleStatusChange}
+          onOpenDrinks={handleOpenDrinks}
         />
       )}
 

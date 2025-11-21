@@ -15,6 +15,7 @@ interface DrinkDialogProps {
   onClose: () => void;
   onQuantityChange: (id: number, quantity: number) => void;
   onStatusChange: (id: number, isOpened: boolean) => void;
+  onOpenDrinks: (id: number, count: number) => void;
 }
 
 export function DrinkDialog({
@@ -23,6 +24,7 @@ export function DrinkDialog({
   onClose,
   onQuantityChange,
   onStatusChange,
+  onOpenDrinks,
 }: DrinkDialogProps) {
   const [openCount, setOpenCount] = useState("1");
   const [localQuantity, setLocalQuantity] = useState(drink.quantity.toString());
@@ -72,10 +74,11 @@ export function DrinkDialog({
       return;
     }
 
-    // Open the specified number of drinks
-    if (!drink.isOpened) {
-      onStatusChange(drink.id, true);
-    }
+    // Open the drinks (will reduce quantity and mark as opened)
+    onOpenDrinks(drink.id, count);
+    
+    // Update local quantity to reflect the change
+    setLocalQuantity((currentQty - count).toString());
     
     // Reset the input
     setOpenCount("1");
