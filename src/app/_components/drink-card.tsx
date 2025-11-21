@@ -23,21 +23,20 @@ export function DrinkCard({
         <div className="flex-1">
           <h3 className="font-semibold text-lg text-gray-800">{drink.name}</h3>
           <p className="text-sm text-gray-500">Barcode: {drink.barcode}</p>
-          <div className="mt-2 flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">
-              Status:
-            </span>
-            <button
-              onClick={() => onStatusChange(drink.id, !drink.isOpened)}
-              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                drink.isOpened
-                  ? "bg-green-200 text-green-800"
-                  : "bg-blue-200 text-blue-800"
-              }`}
-            >
-              {drink.isOpened ? "Opened" : "Closed"}
-            </button>
-          </div>
+          {drink.quantity > 0 && (
+            <div className="mt-2">
+              <button
+                onClick={() => onStatusChange(drink.id, !drink.isOpened)}
+                className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  drink.isOpened
+                    ? "bg-green-200 text-green-800"
+                    : "bg-blue-200 text-blue-800"
+                }`}
+              >
+                {drink.isOpened ? "Opened" : "Closed"}
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-3">

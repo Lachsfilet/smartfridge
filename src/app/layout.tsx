@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   title: "Smart Fridge - Drink Management",
   description: "Manage your drinks inventory with barcode scanning",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
 };
 
 const geist = Geist({

@@ -52,22 +52,24 @@ export function DrinkDialog({
             </button>
           </div>
 
-          {/* Status Toggle */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Status:
-            </label>
-            <button
-              onClick={() => onStatusChange(drink.id, !drink.isOpened)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                drink.isOpened
-                  ? "bg-green-100 text-green-800 hover:bg-green-200"
-                  : "bg-blue-100 text-blue-800 hover:bg-blue-200"
-              }`}
-            >
-              {drink.isOpened ? "🍺 Opened" : "🥤 Closed"}
-            </button>
-          </div>
+          {/* Opened/Closed Toggle - Only show if quantity > 0 */}
+          {drink.quantity > 0 && (
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Status:
+              </label>
+              <button
+                onClick={() => onStatusChange(drink.id, !drink.isOpened)}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  drink.isOpened
+                    ? "bg-green-100 text-green-800 hover:bg-green-200"
+                    : "bg-blue-100 text-blue-800 hover:bg-blue-200"
+                }`}
+              >
+                {drink.isOpened ? "🍺 Opened" : "🥤 Closed"}
+              </button>
+            </div>
+          )}
 
           {/* Quantity Controls */}
           <div className="mb-6">

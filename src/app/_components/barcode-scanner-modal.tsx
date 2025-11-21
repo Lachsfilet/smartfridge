@@ -25,10 +25,13 @@ export function BarcodeScannerModal({
 
   if (!isOpen) return null;
 
-  const handleScan = (err: unknown, result?: { text?: string }) => {
-    if (result?.text) {
-      onScan(result.text);
-      setUseCameraScanner(false);
+  const handleScan = (err: unknown, result?: { getText?: () => string }) => {
+    if (result?.getText) {
+      const text = result.getText();
+      if (text) {
+        onScan(text);
+        setUseCameraScanner(false);
+      }
     }
   };
 
