@@ -82,24 +82,35 @@ export function CreateDrinkDialog({
 
             {/* Quantity Input */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-3">
                 Anfangsmenge
               </label>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center gap-6">
                 <button
                   type="button"
                   onClick={() => setQuantity(Math.max(0, quantity - 1))}
-                  className="w-10 h-10 rounded-full bg-red-500 text-white font-bold text-xl hover:bg-red-600 active:scale-95 transition-all"
+                  disabled={quantity === 0}
+                  className="w-16 h-16 rounded-full bg-red-500 text-white font-bold text-3xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-red-600 active:scale-95 transition-all shadow-md"
                 >
                   −
                 </button>
-                <span className="text-3xl font-bold text-gray-800 w-16 text-center">
-                  {quantity}
-                </span>
+                <input
+                  type="number"
+                  min="0"
+                  value={quantity}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    // Allow empty string for editing, otherwise validate
+                    if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0)) {
+                      setQuantity(val === "" ? 0 : parseInt(val, 10));
+                    }
+                  }}
+                  className="text-5xl font-bold text-gray-800 w-32 text-center border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent py-2"
+                />
                 <button
                   type="button"
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 rounded-full bg-green-500 text-white font-bold text-xl hover:bg-green-600 active:scale-95 transition-all"
+                  className="w-16 h-16 rounded-full bg-green-500 text-white font-bold text-3xl hover:bg-green-600 active:scale-95 transition-all shadow-md"
                 >
                   +
                 </button>

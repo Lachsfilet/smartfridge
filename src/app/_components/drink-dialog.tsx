@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { api } from "@/trpc/react";
 
 interface DrinkDialogProps {
   drink: {
@@ -14,7 +15,6 @@ interface DrinkDialogProps {
   onClose: () => void;
   onQuantityChange: (id: number, quantity: number) => void;
   onOpenedQuantityChange: (id: number, openedQuantity: number) => void;
-  onDelete: (id: number) => void;
 }
 
 export function DrinkDialog({
@@ -23,11 +23,22 @@ export function DrinkDialog({
   onClose,
   onQuantityChange,
   onOpenedQuantityChange,
-  onDelete,
 }: DrinkDialogProps) {
   const [openCount, setOpenCount] = useState("1");
   const [localQuantity, setLocalQuantity] = useState(drink.quantity.toString());
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const utils = api.useUtils();
+  const deleteMutation = api.drink.delete.useMutation({
+    onSuccess: () => {
+      void utils.drink.getAll.invalidate();
+      onClose();
+    },
+    onError: (error) => {
+      alert(`Fehler beim Löschen: ${error.message}`);
+      setShowDeleteConfirm(false);
+    },
+  });
 
   // Update local quantity when drink quantity changes (from external updates)
   useEffect(() => {
@@ -79,17 +90,17 @@ export function DrinkDialog({
     }
   };
 
+  const handleDelete = () => {
+    deleteMutation.mutate({ id: drink.id });
+  };
+
   const handleClose = () => {
     // Submit the quantity changes
     const finalQuantity = parseInt(localQuantity, 10);
     // If empty or invalid, default to 0
     const validQuantity = !isNaN(finalQuantity) && finalQuantity >= 0 ? finalQuantity : 0;
     onQuantityChange(drink.id, validQuantity);
-    onClose();
-  };
-
-  const handleDelete = () => {
-    onDelete(drink.id);
+    setShowDeleteConfirm(false);
     onClose();
   };
 
@@ -230,44 +241,52 @@ export function DrinkDialog({
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-3">
+          <div className="flex gap-3">
             <button
               onClick={handleClose}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
               Speichern & Schließen
             </button>
-            
-            {/* Delete Button */}
-            {!showDeleteConfirm ? (
-              <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="w-full bg-red-100 text-red-700 py-3 px-4 rounded-lg hover:bg-red-200 transition-colors font-medium"
-              >
-                Getränk löschen
-              </button>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-sm text-center text-gray-700">
-                  Wirklich löschen?
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              disabled={deleteMutation.isPending}
+              className="bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
+              title="Getränk löschen"
+            >
+              🗑️
+            </button>
+          </div>
+
+          {/* Delete Confirmation Dialog */}
+          {showDeleteConfirm && (
+            <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-lg shadow-xl max-w-sm w-full p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-3">
+                  Getränk löschen?
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Möchten Sie <span className="font-semibold">{drink.name}</span> wirklich aus der Datenbank löschen? Diese Aktion kann nicht rückgängig gemacht werden.
                 </p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleDelete}
-                    className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium"
-                  >
-                    Ja, löschen
-                  </button>
+                <div className="flex gap-3">
                   <button
                     onClick={() => setShowDeleteConfirm(false)}
-                    className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                    disabled={deleteMutation.isPending}
+                    className="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors font-medium disabled:opacity-50"
                   >
                     Abbrechen
                   </button>
+                  <button
+                    onClick={handleDelete}
+                    disabled={deleteMutation.isPending}
+                    className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  >
+                    {deleteMutation.isPending ? "Löschen..." : "Löschen"}
+                  </button>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
