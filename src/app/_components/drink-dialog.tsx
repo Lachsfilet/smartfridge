@@ -56,7 +56,7 @@ export function DrinkDialog({
     }
     
     const currentQty = parseInt(localQuantity, 10) || 0;
-    const closedQuantity = currentQty - drink.openedQuantity;
+    const closedQuantity = Math.max(0, currentQty - drink.openedQuantity);
     
     if (count > closedQuantity) {
       alert(`Sie haben nur ${closedQuantity} geschlossene Getränke verfügbar.`);
@@ -73,7 +73,7 @@ export function DrinkDialog({
 
   const handleOpenCountChange = (newCount: number) => {
     const currentQty = parseInt(localQuantity, 10) || 0;
-    const closedQuantity = currentQty - drink.openedQuantity;
+    const closedQuantity = Math.max(0, currentQty - drink.openedQuantity);
     if (newCount >= 1 && newCount <= closedQuantity) {
       setOpenCount(newCount.toString());
     }
@@ -93,7 +93,7 @@ export function DrinkDialog({
     onClose();
   };
 
-  const closedQuantity = parseInt(localQuantity, 10) - drink.openedQuantity;
+  const closedQuantity = Math.max(0, parseInt(localQuantity, 10) - drink.openedQuantity);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
