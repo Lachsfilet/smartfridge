@@ -9,13 +9,12 @@ interface DrinkDialogProps {
     barcode: string;
     name: string;
     quantity: number;
-    isOpened: boolean;
+    openedQuantity: number;
   };
   isOpen: boolean;
   onClose: () => void;
   onQuantityChange: (id: number, quantity: number) => void;
-  onStatusChange: (id: number, isOpened: boolean) => void;
-  onOpenDrinks: (id: number, count: number) => void;
+  onOpenedQuantityChange: (id: number, openedQuantity: number) => void;
 }
 
 export function DrinkDialog({
@@ -23,8 +22,7 @@ export function DrinkDialog({
   isOpen,
   onClose,
   onQuantityChange,
-  onStatusChange,
-  onOpenDrinks,
+  onOpenedQuantityChange,
 }: DrinkDialogProps) {
   const [openCount, setOpenCount] = useState("1");
   const [localQuantity, setLocalQuantity] = useState(drink.quantity.toString());
@@ -69,16 +67,16 @@ export function DrinkDialog({
     }
     
     const currentQty = parseInt(localQuantity, 10) || 0;
-    if (count > currentQty) {
-      alert(`Sie haben nur ${currentQty} Getränke verfügbar.`);
+    const closedQuantity = Math.max(0, currentQty - drink.openedQuantity);
+    
+    if (count > closedQuantity) {
+      alert(`Sie haben nur ${closedQuantity} geschlossene Getränke verfügbar.`);
       return;
     }
 
-    // Open the drinks (will reduce quantity and mark as opened)
-    onOpenDrinks(drink.id, count);
-    
-    // Update local quantity to reflect the change
-    setLocalQuantity((currentQty - count).toString());
+    // Increase the opened quantity
+    const newOpenedQuantity = drink.openedQuantity + count;
+    onOpenedQuantityChange(drink.id, newOpenedQuantity);
     
     // Reset the input
     setOpenCount("1");
@@ -86,7 +84,8 @@ export function DrinkDialog({
 
   const handleOpenCountChange = (newCount: number) => {
     const currentQty = parseInt(localQuantity, 10) || 0;
-    if (newCount >= 1 && newCount <= currentQty) {
+    const closedQuantity = Math.max(0, currentQty - drink.openedQuantity);
+    if (newCount >= 1 && newCount <= closedQuantity) {
       setOpenCount(newCount.toString());
     }
   };
@@ -104,6 +103,8 @@ export function DrinkDialog({
     setShowDeleteConfirm(false);
     onClose();
   };
+
+  const closedQuantity = Math.max(0, parseInt(localQuantity, 10) - drink.openedQuantity);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -127,27 +128,36 @@ export function DrinkDialog({
             </button>
           </div>
 
-          {/* Opened/Closed Toggle - Only show if quantity > 0 */}
-          {parseInt(localQuantity, 10) > 0 && (
+          {/* Opened Quantity Display and Controls */}
+          {drink.openedQuantity > 0 && parseInt(localQuantity, 10) > 0 && (
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status:
+                Geöffnete Getränke:
               </label>
-              <button
-                onClick={() => onStatusChange(drink.id, !drink.isOpened)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  drink.isOpened
-                    ? "bg-green-100 text-green-800 hover:bg-green-200"
-                    : "bg-blue-100 text-blue-800 hover:bg-blue-200"
-                }`}
-              >
-                {drink.isOpened ? "🍺 Geöffnet" : "🥤 Geschlossen"}
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => onOpenedQuantityChange(drink.id, Math.max(0, drink.openedQuantity - 1))}
+                  disabled={drink.openedQuantity === 0}
+                  className="w-10 h-10 rounded-full bg-orange-500 text-white font-bold text-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all"
+                >
+                  −
+                </button>
+                <span className="text-2xl font-semibold text-green-800 bg-green-100 px-6 py-2 rounded-lg">
+                  {drink.openedQuantity}
+                </span>
+                <button
+                  onClick={() => onOpenedQuantityChange(drink.id, Math.min(parseInt(localQuantity, 10), drink.openedQuantity + 1))}
+                  disabled={drink.openedQuantity >= parseInt(localQuantity, 10)}
+                  className="w-10 h-10 rounded-full bg-orange-500 text-white font-bold text-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all"
+                >
+                  +
+                </button>
+              </div>
             </div>
           )}
 
-          {/* Open Drinks Section - Only show if closed and quantity > 0 */}
-          {!drink.isOpened && parseInt(localQuantity, 10) > 0 && (
+          {/* Open Drinks Section - Only show if there are closed drinks */}
+          {closedQuantity > 0 && (
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Getränke öffnen:
@@ -163,7 +173,7 @@ export function DrinkDialog({
                 <input
                   type="number"
                   min="1"
-                  max={parseInt(localQuantity, 10)}
+                  max={closedQuantity}
                   value={openCount}
                   onChange={(e) => {
                     const val = e.target.value;
@@ -177,7 +187,7 @@ export function DrinkDialog({
                 />
                 <button
                   onClick={() => handleOpenCountChange(parseInt(openCount, 10) + 1)}
-                  disabled={parseInt(openCount, 10) >= parseInt(localQuantity, 10)}
+                  disabled={parseInt(openCount, 10) >= closedQuantity}
                   className="w-12 h-12 rounded-full bg-orange-500 text-white font-bold text-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all shadow-md"
                 >
                   +
@@ -190,7 +200,7 @@ export function DrinkDialog({
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                Geben Sie die Anzahl der zu öffnenden Getränke ein (1 - {parseInt(localQuantity, 10)})
+                Geben Sie die Anzahl der zu öffnenden Getränke ein (1 - {closedQuantity})
               </p>
             </div>
           )}
@@ -198,7 +208,7 @@ export function DrinkDialog({
           {/* Quantity Controls */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Menge:
+              Gesamtmenge:
             </label>
             <div className="flex items-center justify-center gap-6">
               <button

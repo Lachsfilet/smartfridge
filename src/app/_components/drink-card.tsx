@@ -6,36 +6,33 @@ interface DrinkCardProps {
     barcode: string;
     name: string;
     quantity: number;
-    isOpened: boolean;
+    openedQuantity: number;
   };
   onQuantityChange: (id: number, quantity: number) => void;
-  onStatusChange: (id: number, isOpened: boolean) => void;
 }
 
 export function DrinkCard({
   drink,
   onQuantityChange,
-  onStatusChange,
 }: DrinkCardProps) {
+  const closedQuantity = drink.quantity - drink.openedQuantity;
 
   return (
     <div className="bg-white border-2 border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between">
         <div className="flex-1">
           <h3 className="font-semibold text-lg text-gray-800">{drink.name}</h3>
           <p className="text-sm text-gray-500">Barcode: {drink.barcode}</p>
-          {drink.quantity > 0 && (
+          {drink.openedQuantity > 0 && (
             <div className="mt-2">
-              <button
-                onClick={() => onStatusChange(drink.id, !drink.isOpened)}
-                className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  drink.isOpened
-                    ? "bg-green-200 text-green-800"
-                    : "bg-blue-200 text-blue-800"
-                }`}
-              >
-                {drink.isOpened ? "Geöffnet" : "Geschlossen"}
-              </button>
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-200 text-green-800">
+                {drink.openedQuantity} Geöffnet
+              </span>
+              {closedQuantity > 0 && (
+                <span className="ml-2 px-3 py-1 rounded-full text-xs font-medium bg-blue-200 text-blue-800">
+                  {closedQuantity} Geschlossen
+                </span>
+              )}
             </div>
           )}
         </div>

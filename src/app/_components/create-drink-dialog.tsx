@@ -38,7 +38,7 @@ export function CreateDrinkDialog({
         barcode,
         name: name.trim(),
         quantity,
-        isOpened,
+        openedQuantity: isOpened ? quantity : 0, // If opened, all drinks are opened
       });
     }
   };

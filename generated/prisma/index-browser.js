@@ -133,7 +133,7 @@ exports.Prisma.DrinkScalarFieldEnum = {
   barcode: 'barcode',
   name: 'name',
   quantity: 'quantity',
-  isOpened: 'isOpened',
+  openedQuantity: 'openedQuantity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

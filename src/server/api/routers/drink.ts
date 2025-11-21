@@ -7,7 +7,7 @@ export const drinkRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const drinks = await ctx.db.drink.findMany({
       orderBy: [
-        { isOpened: "desc" }, // Opened drinks first
+        { openedQuantity: "desc" }, // Opened drinks first
         { quantity: "desc" }, // Then by quantity
         { name: "asc" }, // Then alphabetically
       ],
@@ -34,7 +34,7 @@ export const drinkRouter = createTRPCRouter({
         barcode: z.string().min(1),
         name: z.string().min(1),
         quantity: z.number().int().min(0).default(1),
-        isOpened: z.boolean().default(false),
+        openedQuantity: z.number().int().min(0).default(0),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -43,7 +43,7 @@ export const drinkRouter = createTRPCRouter({
           barcode: input.barcode,
           name: input.name,
           quantity: input.quantity,
-          isOpened: input.isOpened,
+          openedQuantity: input.openedQuantity,
         },
       });
     }),
@@ -57,24 +57,51 @@ export const drinkRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      // Get current drink state
+      const drink = await ctx.db.drink.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!drink) {
+        throw new Error("Drink not found");
+      }
+
+      // If new quantity is less than opened quantity, adjust opened quantity
+      const openedQuantity = Math.min(drink.openedQuantity, input.quantity);
+
       return ctx.db.drink.update({
         where: { id: input.id },
-        data: { quantity: input.quantity },
+        data: { 
+          quantity: input.quantity,
+          openedQuantity,
+        },
       });
     }),
 
-  // Update drink status (opened/closed)
-  updateStatus: publicProcedure
+  // Update opened quantity
+  updateOpenedQuantity: publicProcedure
     .input(
       z.object({
         id: z.number(),
-        isOpened: z.boolean(),
+        openedQuantity: z.number().int().min(0),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      // Get current drink state
+      const drink = await ctx.db.drink.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!drink) {
+        throw new Error("Drink not found");
+      }
+
+      // Ensure opened quantity doesn't exceed total quantity
+      const openedQuantity = Math.min(input.openedQuantity, drink.quantity);
+
       return ctx.db.drink.update({
         where: { id: input.id },
-        data: { isOpened: input.isOpened },
+        data: { openedQuantity },
       });
     }),
 
