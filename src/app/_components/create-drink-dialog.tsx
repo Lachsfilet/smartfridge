@@ -49,7 +49,7 @@ export function CreateDrinkDialog({
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold text-gray-800">
-              Create New Drink
+              Neues Getränk erstellen
             </h2>
             <button
               onClick={onClose}
@@ -61,20 +61,20 @@ export function CreateDrinkDialog({
 
           <p className="text-sm text-gray-600 mb-4">
             Barcode <span className="font-mono font-semibold">{barcode}</span>{" "}
-            not found in database.
+            wurde nicht in der Datenbank gefunden.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Input */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Drink Name *
+                Getränkename *
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g., Coca-Cola 500ml"
+                placeholder="z.B. Coca-Cola 500ml"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -83,7 +83,7 @@ export function CreateDrinkDialog({
             {/* Quantity Input */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Initial Quantity
+                Anfangsmenge
               </label>
               <div className="flex items-center gap-4">
                 <button
@@ -121,7 +121,7 @@ export function CreateDrinkDialog({
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   }`}
                 >
-                  🥤 Closed
+                  🥤 Geschlossen
                 </button>
                 <button
                   type="button"
@@ -132,7 +132,7 @@ export function CreateDrinkDialog({
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   }`}
                 >
-                  🍺 Opened
+                  🍺 Geöffnet
                 </button>
               </div>
             </div>
@@ -144,21 +144,21 @@ export function CreateDrinkDialog({
                 onClick={onClose}
                 className="flex-1 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors font-medium"
               >
-                Cancel
+                Abbrechen
               </button>
               <button
                 type="submit"
                 disabled={createMutation.isPending || !name.trim()}
                 className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {createMutation.isPending ? "Creating..." : "Create Drink"}
+                {createMutation.isPending ? "Erstelle..." : "Getränk erstellen"}
               </button>
             </div>
           </form>
 
           {createMutation.isError && (
             <p className="text-red-600 text-sm mt-3">
-              Error: {createMutation.error.message}
+              Fehler: {createMutation.error.message}
             </p>
           )}
         </div>

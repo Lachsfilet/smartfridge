@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 interface DrinkCardProps {
   drink: {
     id: number;
@@ -17,9 +19,38 @@ export function DrinkCard({
   onQuantityChange,
   onStatusChange,
 }: DrinkCardProps) {
+  const [openCount, setOpenCount] = useState("1");
+
+  const handleOpenDrinks = () => {
+    const count = parseInt(openCount, 10);
+    if (isNaN(count) || count < 1) {
+      alert("Bitte geben Sie eine gültige Anzahl an Getränken ein.");
+      return;
+    }
+    
+    if (count > drink.quantity) {
+      alert(`Sie haben nur ${drink.quantity} Getränke verfügbar.`);
+      return;
+    }
+
+    // Open the drinks
+    if (!drink.isOpened) {
+      onStatusChange(drink.id, true);
+    }
+    
+    // Reset the input
+    setOpenCount("1");
+  };
+
+  const handleOpenCountChange = (newCount: number) => {
+    if (newCount >= 1 && newCount <= drink.quantity) {
+      setOpenCount(newCount.toString());
+    }
+  };
+
   return (
     <div className="bg-white border-2 border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex-1">
           <h3 className="font-semibold text-lg text-gray-800">{drink.name}</h3>
           <p className="text-sm text-gray-500">Barcode: {drink.barcode}</p>
@@ -33,7 +64,7 @@ export function DrinkCard({
                     : "bg-blue-200 text-blue-800"
                 }`}
               >
-                {drink.isOpened ? "Opened" : "Closed"}
+                {drink.isOpened ? "Geöffnet" : "Geschlossen"}
               </button>
             </div>
           )}
@@ -58,6 +89,48 @@ export function DrinkCard({
           </button>
         </div>
       </div>
+
+      {/* Open Drinks Section - Only show if closed and quantity > 0 */}
+      {!drink.isOpened && drink.quantity > 0 && (
+        <div className="border-t border-gray-200 pt-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => handleOpenCountChange(parseInt(openCount, 10) - 1)}
+              disabled={parseInt(openCount, 10) <= 1}
+              className="w-8 h-8 rounded-full bg-orange-500 text-white font-bold text-sm disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all"
+            >
+              −
+            </button>
+            <input
+              type="number"
+              min="1"
+              max={drink.quantity}
+              value={openCount}
+              onChange={(e) => {
+                const val = e.target.value;
+                // Allow empty string for editing, otherwise validate within range
+                if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 1)) {
+                  setOpenCount(val);
+                }
+              }}
+              className="flex-1 px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
+            />
+            <button
+              onClick={() => handleOpenCountChange(parseInt(openCount, 10) + 1)}
+              disabled={parseInt(openCount, 10) >= drink.quantity}
+              className="w-8 h-8 rounded-full bg-orange-500 text-white font-bold text-sm disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all"
+            >
+              +
+            </button>
+            <button
+              onClick={handleOpenDrinks}
+              className="px-4 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium text-sm"
+            >
+              Öffnen
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

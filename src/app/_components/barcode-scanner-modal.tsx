@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import type { BarcodeStringFormat } from "react-qr-barcode-scanner/dist/BarcodeStringFormat";
 
 // Dynamically import the scanner to avoid SSR issues
 const BarcodeScannerComponent = dynamic(
@@ -15,6 +16,21 @@ interface BarcodeScannerModalProps {
   onScan: (barcode: string) => void;
 }
 
+// Barcode formats to scan (excluding QR codes)
+const BARCODE_FORMATS: BarcodeStringFormat[] = [
+  "UPC_A",
+  "UPC_E",
+  "EAN_8",
+  "EAN_13",
+  "CODE_39",
+  "CODE_93",
+  "CODE_128",
+  "ITF",
+  "CODABAR",
+  "RSS_14",
+  "RSS_EXPANDED",
+] as BarcodeStringFormat[];
+
 export function BarcodeScannerModal({
   isOpen,
   onClose,
@@ -22,6 +38,52 @@ export function BarcodeScannerModal({
 }: BarcodeScannerModalProps) {
   const [manualBarcode, setManualBarcode] = useState("");
   const [useCameraScanner, setUseCameraScanner] = useState(false);
+
+  // Check camera permission and auto-enable scanner if granted
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let permissionStatus: PermissionStatus | null = null;
+
+    const checkCameraPermission = async () => {
+      try {
+        // Check if Permissions API is available
+        if (navigator.permissions?.query) {
+          permissionStatus = await navigator.permissions.query({
+            name: "camera" as PermissionName,
+          });
+          
+          if (permissionStatus.state === "granted") {
+            setUseCameraScanner(true);
+          }
+
+          // Listen for permission changes
+          const handlePermissionChange = () => {
+            if (permissionStatus?.state === "granted") {
+              setUseCameraScanner(true);
+            } else if (permissionStatus?.state === "denied") {
+              setUseCameraScanner(false);
+            }
+          };
+
+          permissionStatus.onchange = handlePermissionChange;
+        }
+      } catch {
+        // Permissions API not supported or error occurred
+        // User will need to manually enable camera
+        // Silently fail - this is not a critical error
+      }
+    };
+
+    void checkCameraPermission();
+
+    // Cleanup permission listener on unmount
+    return () => {
+      if (permissionStatus) {
+        permissionStatus.onchange = null;
+      }
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -48,7 +110,7 @@ export function BarcodeScannerModal({
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-gray-800">Scan Barcode</h2>
+            <h2 className="text-2xl font-bold text-gray-800">Barcode scannen</h2>
             <button
               onClick={() => {
                 onClose();
@@ -65,27 +127,27 @@ export function BarcodeScannerModal({
           <div className="mb-6">
             <form onSubmit={handleManualSubmit} className="space-y-3">
               <label className="block text-sm font-medium text-gray-700">
-                Enter Barcode Manually:
+                Barcode manuell eingeben:
               </label>
               <input
                 type="text"
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
-                placeholder="Enter barcode number..."
+                placeholder="Barcode-Nummer eingeben..."
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
-                Submit Barcode
+                Barcode absenden
               </button>
             </form>
           </div>
 
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px bg-gray-300"></div>
-            <span className="text-gray-500 text-sm">OR</span>
+            <span className="text-gray-500 text-sm">ODER</span>
             <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
@@ -114,7 +176,7 @@ export function BarcodeScannerModal({
                   d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
                 />
               </svg>
-              Use Camera Scanner
+              Kamera-Scanner verwenden
             </button>
           ) : (
             <div>
@@ -123,7 +185,7 @@ export function BarcodeScannerModal({
                   onClick={() => setUseCameraScanner(false)}
                   className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                 >
-                  ← Back to manual input
+                  ← Zurück zur manuellen Eingabe
                 </button>
               </div>
               <div className="bg-gray-900 rounded-lg overflow-hidden">
@@ -131,14 +193,15 @@ export function BarcodeScannerModal({
                   onUpdate={handleScan}
                   width="100%"
                   height={300}
+                  formats={BARCODE_FORMATS}
                 />
               </div>
               <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-800 text-center">
-                  📸 Point your camera at a barcode
+                  📸 Richten Sie Ihre Kamera auf einen Barcode
                 </p>
                 <p className="text-xs text-blue-600 text-center mt-1">
-                  Allow camera access when prompted by your browser
+                  Erlauben Sie den Kamerazugriff, wenn Ihr Browser Sie dazu auffordert
                 </p>
               </div>
             </div>

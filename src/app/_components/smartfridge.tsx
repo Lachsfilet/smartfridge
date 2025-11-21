@@ -76,8 +76,8 @@ export function SmartFridge() {
     <div className="flex flex-col h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       {/* Header */}
       <div className="bg-blue-600 text-white p-4 md:p-6 shadow-lg flex-shrink-0">
-        <h1 className="text-2xl md:text-3xl font-bold">Smart Fridge</h1>
-        <p className="text-blue-100 mt-1 text-sm md:text-base">Manage your drinks inventory</p>
+        <h1 className="text-2xl md:text-3xl font-bold">Smart Kühlschrank</h1>
+        <p className="text-blue-100 mt-1 text-sm md:text-base">Verwalten Sie Ihr Getränkeinventar</p>
       </div>
 
       {/* Scrollable Content */}
@@ -89,7 +89,7 @@ export function SmartFridge() {
               <div className="bg-green-100 border-l-4 border-green-500 p-3 md:p-4 mb-3 rounded shadow-sm">
                 <h2 className="text-lg md:text-xl font-semibold text-green-900 flex items-center">
                   <span className="mr-2">🍺</span>
-                  Opened Drinks
+                  Geöffnete Getränke
                 </h2>
               </div>
               <div className="space-y-3">
@@ -111,7 +111,7 @@ export function SmartFridge() {
               <div className="bg-blue-100 border-l-4 border-blue-500 p-3 md:p-4 mb-3 rounded shadow-sm">
                 <h2 className="text-lg md:text-xl font-semibold text-blue-900 flex items-center">
                   <span className="mr-2">🥤</span>
-                  Closed Drinks
+                  Geschlossene Getränke
                 </h2>
               </div>
               <div className="space-y-3">
@@ -133,7 +133,7 @@ export function SmartFridge() {
               <div className="bg-red-100 border-l-4 border-red-500 p-3 md:p-4 mb-3 rounded shadow-sm">
                 <h2 className="text-lg md:text-xl font-semibold text-red-900 flex items-center">
                   <span className="mr-2">📭</span>
-                  Out of Stock
+                  Nicht vorrätig
                 </h2>
               </div>
               <div className="space-y-3">
@@ -151,8 +151,8 @@ export function SmartFridge() {
 
           {!drinks || drinks.length === 0 ? (
             <div className="text-center py-12 text-gray-500">
-              <p className="text-lg">No drinks in the fridge yet.</p>
-              <p className="text-sm mt-2">Scan a barcode to add drinks!</p>
+              <p className="text-lg">Noch keine Getränke im Kühlschrank.</p>
+              <p className="text-sm mt-2">Scannen Sie einen Barcode, um Getränke hinzuzufügen!</p>
             </div>
           ) : null}
         </div>
@@ -162,7 +162,7 @@ export function SmartFridge() {
       <button
         onClick={() => setIsScannerOpen(true)}
         className="fixed bottom-6 right-6 w-14 h-14 md:w-16 md:h-16 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50"
-        aria-label="Scan barcode"
+        aria-label="Barcode scannen"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
