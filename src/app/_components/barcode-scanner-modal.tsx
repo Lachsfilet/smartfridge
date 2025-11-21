@@ -43,11 +43,13 @@ export function BarcodeScannerModal({
   useEffect(() => {
     if (!isOpen) return;
 
+    let permissionStatus: PermissionStatus | null = null;
+
     const checkCameraPermission = async () => {
       try {
         // Check if Permissions API is available
         if (navigator.permissions?.query) {
-          const permissionStatus = await navigator.permissions.query({
+          permissionStatus = await navigator.permissions.query({
             name: "camera" as PermissionName,
           });
           
@@ -56,11 +58,15 @@ export function BarcodeScannerModal({
           }
 
           // Listen for permission changes
-          permissionStatus.onchange = () => {
-            if (permissionStatus.state === "granted") {
+          const handlePermissionChange = () => {
+            if (permissionStatus?.state === "granted") {
               setUseCameraScanner(true);
+            } else if (permissionStatus?.state === "denied") {
+              setUseCameraScanner(false);
             }
           };
+
+          permissionStatus.onchange = handlePermissionChange;
         }
       } catch (error) {
         // Permissions API not supported or error occurred
@@ -70,6 +76,13 @@ export function BarcodeScannerModal({
     };
 
     void checkCameraPermission();
+
+    // Cleanup permission listener on unmount
+    return () => {
+      if (permissionStatus) {
+        permissionStatus.onchange = null;
+      }
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;
