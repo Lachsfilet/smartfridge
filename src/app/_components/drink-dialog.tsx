@@ -77,9 +77,9 @@ export function DrinkDialog({
   const handleClose = () => {
     // Submit the quantity changes
     const finalQuantity = parseInt(localQuantity, 10);
-    if (!isNaN(finalQuantity) && finalQuantity >= 0) {
-      onQuantityChange(drink.id, finalQuantity);
-    }
+    // If empty or invalid, default to 0
+    const validQuantity = !isNaN(finalQuantity) && finalQuantity >= 0 ? finalQuantity : 0;
+    onQuantityChange(drink.id, validQuantity);
     onClose();
   };
 
@@ -143,7 +143,13 @@ export function DrinkDialog({
                   min="1"
                   max={parseInt(localQuantity, 10)}
                   value={openCount}
-                  onChange={(e) => setOpenCount(e.target.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    // Allow empty string for editing, otherwise validate within range
+                    if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 1)) {
+                      setOpenCount(val);
+                    }
+                  }}
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg text-center"
                   placeholder="Number"
                 />
@@ -184,7 +190,13 @@ export function DrinkDialog({
                 type="number"
                 min="0"
                 value={localQuantity}
-                onChange={(e) => setLocalQuantity(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  // Allow empty string for editing, otherwise validate
+                  if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0)) {
+                    setLocalQuantity(val);
+                  }
+                }}
                 className="text-5xl font-bold text-gray-800 w-32 text-center border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent py-2"
               />
               <button

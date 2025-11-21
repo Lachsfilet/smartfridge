@@ -106,7 +106,13 @@ export function DrinkCard({
               min="1"
               max={drink.quantity}
               value={openCount}
-              onChange={(e) => setOpenCount(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                // Allow empty string for editing, otherwise validate within range
+                if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 1)) {
+                  setOpenCount(val);
+                }
+              }}
               className="flex-1 px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
             />
             <button
