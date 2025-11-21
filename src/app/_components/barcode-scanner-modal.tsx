@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import type { BarcodeStringFormat } from "react-qr-barcode-scanner/dist/BarcodeStringFormat";
 
 // Dynamically import the scanner to avoid SSR issues
 const BarcodeScannerComponent = dynamic(
@@ -15,6 +16,21 @@ interface BarcodeScannerModalProps {
   onScan: (barcode: string) => void;
 }
 
+// Barcode formats to scan (excluding QR codes)
+const BARCODE_FORMATS: BarcodeStringFormat[] = [
+  "UPC_A",
+  "UPC_E",
+  "EAN_8",
+  "EAN_13",
+  "CODE_39",
+  "CODE_93",
+  "CODE_128",
+  "ITF",
+  "CODABAR",
+  "RSS_14",
+  "RSS_EXPANDED",
+] as BarcodeStringFormat[];
+
 export function BarcodeScannerModal({
   isOpen,
   onClose,
@@ -22,6 +38,39 @@ export function BarcodeScannerModal({
 }: BarcodeScannerModalProps) {
   const [manualBarcode, setManualBarcode] = useState("");
   const [useCameraScanner, setUseCameraScanner] = useState(false);
+
+  // Check camera permission and auto-enable scanner if granted
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const checkCameraPermission = async () => {
+      try {
+        // Check if Permissions API is available
+        if (navigator.permissions?.query) {
+          const permissionStatus = await navigator.permissions.query({
+            name: "camera" as PermissionName,
+          });
+          
+          if (permissionStatus.state === "granted") {
+            setUseCameraScanner(true);
+          }
+
+          // Listen for permission changes
+          permissionStatus.onchange = () => {
+            if (permissionStatus.state === "granted") {
+              setUseCameraScanner(true);
+            }
+          };
+        }
+      } catch (error) {
+        // Permissions API not supported or error occurred
+        // User will need to manually enable camera
+        console.log("Camera permission check not available:", error);
+      }
+    };
+
+    void checkCameraPermission();
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -131,6 +180,7 @@ export function BarcodeScannerModal({
                   onUpdate={handleScan}
                   width="100%"
                   height={300}
+                  formats={BARCODE_FORMATS}
                 />
               </div>
               <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
