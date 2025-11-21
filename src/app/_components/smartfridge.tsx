@@ -14,7 +14,7 @@ export function SmartFridge() {
     barcode: string;
     name: string;
     quantity: number;
-    isOpened: boolean;
+    openedQuantity: number;
   } | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [scannedBarcode, setScannedBarcode] = useState<string>("");
@@ -25,14 +25,19 @@ export function SmartFridge() {
       void refetch();
     },
   });
-  const updateStatusMutation = api.drink.updateStatus.useMutation({
+  const updateOpenedQuantityMutation = api.drink.updateOpenedQuantity.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
+  const deleteDrinkMutation = api.drink.delete.useMutation({
     onSuccess: () => {
       void refetch();
     },
   });
 
-  const openedDrinks = drinks?.filter((d) => d.isOpened && d.quantity > 0) ?? [];
-  const closedDrinks = drinks?.filter((d) => !d.isOpened && d.quantity > 0) ?? [];
+  const openedDrinks = drinks?.filter((d) => d.openedQuantity > 0 && d.quantity > 0) ?? [];
+  const closedDrinks = drinks?.filter((d) => d.openedQuantity === 0 && d.quantity > 0) ?? [];
   const emptyDrinks = drinks?.filter((d) => d.quantity === 0) ?? [];
 
   const handleScan = async (barcode: string) => {
@@ -59,11 +64,18 @@ export function SmartFridge() {
     });
   };
 
-  const handleStatusChange = (id: number, isOpened: boolean) => {
-    updateStatusMutation.mutate({
+  const handleOpenedQuantityChange = (id: number, newOpenedQuantity: number) => {
+    if (newOpenedQuantity < 0) return;
+    
+    updateOpenedQuantityMutation.mutate({
       id,
-      isOpened,
+      openedQuantity: newOpenedQuantity,
     });
+  };
+
+  const handleDelete = (id: number) => {
+    deleteDrinkMutation.mutate({ id });
+    setSelectedDrink(null);
   };
 
   const handleCreateSuccess = () => {
@@ -98,7 +110,6 @@ export function SmartFridge() {
                     key={drink.id}
                     drink={drink}
                     onQuantityChange={handleQuantityChange}
-                    onStatusChange={handleStatusChange}
                   />
                 ))}
               </div>
@@ -120,7 +131,6 @@ export function SmartFridge() {
                     key={drink.id}
                     drink={drink}
                     onQuantityChange={handleQuantityChange}
-                    onStatusChange={handleStatusChange}
                   />
                 ))}
               </div>
@@ -142,7 +152,6 @@ export function SmartFridge() {
                     key={drink.id}
                     drink={drink}
                     onQuantityChange={handleQuantityChange}
-                    onStatusChange={handleStatusChange}
                   />
                 ))}
               </div>
@@ -199,7 +208,8 @@ export function SmartFridge() {
           isOpen={!!selectedDrink}
           onClose={() => setSelectedDrink(null)}
           onQuantityChange={handleQuantityChange}
-          onStatusChange={handleStatusChange}
+          onOpenedQuantityChange={handleOpenedQuantityChange}
+          onDelete={handleDelete}
         />
       )}
 

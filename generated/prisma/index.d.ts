@@ -1983,11 +1983,13 @@ export namespace Prisma {
   export type DrinkAvgAggregateOutputType = {
     id: number | null
     quantity: number | null
+    openedQuantity: number | null
   }
 
   export type DrinkSumAggregateOutputType = {
     id: number | null
     quantity: number | null
+    openedQuantity: number | null
   }
 
   export type DrinkMinAggregateOutputType = {
@@ -1995,7 +1997,7 @@ export namespace Prisma {
     barcode: string | null
     name: string | null
     quantity: number | null
-    isOpened: boolean | null
+    openedQuantity: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2005,7 +2007,7 @@ export namespace Prisma {
     barcode: string | null
     name: string | null
     quantity: number | null
-    isOpened: boolean | null
+    openedQuantity: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2015,7 +2017,7 @@ export namespace Prisma {
     barcode: number
     name: number
     quantity: number
-    isOpened: number
+    openedQuantity: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2025,11 +2027,13 @@ export namespace Prisma {
   export type DrinkAvgAggregateInputType = {
     id?: true
     quantity?: true
+    openedQuantity?: true
   }
 
   export type DrinkSumAggregateInputType = {
     id?: true
     quantity?: true
+    openedQuantity?: true
   }
 
   export type DrinkMinAggregateInputType = {
@@ -2037,7 +2041,7 @@ export namespace Prisma {
     barcode?: true
     name?: true
     quantity?: true
-    isOpened?: true
+    openedQuantity?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2047,7 +2051,7 @@ export namespace Prisma {
     barcode?: true
     name?: true
     quantity?: true
-    isOpened?: true
+    openedQuantity?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2057,7 +2061,7 @@ export namespace Prisma {
     barcode?: true
     name?: true
     quantity?: true
-    isOpened?: true
+    openedQuantity?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2154,7 +2158,7 @@ export namespace Prisma {
     barcode: string
     name: string
     quantity: number
-    isOpened: boolean
+    openedQuantity: number
     createdAt: Date
     updatedAt: Date
     _count: DrinkCountAggregateOutputType | null
@@ -2183,7 +2187,7 @@ export namespace Prisma {
     barcode?: boolean
     name?: boolean
     quantity?: boolean
-    isOpened?: boolean
+    openedQuantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["drink"]>
@@ -2193,7 +2197,7 @@ export namespace Prisma {
     barcode?: boolean
     name?: boolean
     quantity?: boolean
-    isOpened?: boolean
+    openedQuantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["drink"]>
@@ -2203,7 +2207,7 @@ export namespace Prisma {
     barcode?: boolean
     name?: boolean
     quantity?: boolean
-    isOpened?: boolean
+    openedQuantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["drink"]>
@@ -2213,12 +2217,12 @@ export namespace Prisma {
     barcode?: boolean
     name?: boolean
     quantity?: boolean
-    isOpened?: boolean
+    openedQuantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DrinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "name" | "quantity" | "isOpened" | "createdAt" | "updatedAt", ExtArgs["result"]["drink"]>
+  export type DrinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "name" | "quantity" | "openedQuantity" | "createdAt" | "updatedAt", ExtArgs["result"]["drink"]>
 
   export type $DrinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Drink"
@@ -2228,7 +2232,7 @@ export namespace Prisma {
       barcode: string
       name: string
       quantity: number
-      isOpened: boolean
+      openedQuantity: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["drink"]>
@@ -2658,7 +2662,7 @@ export namespace Prisma {
     readonly barcode: FieldRef<"Drink", 'String'>
     readonly name: FieldRef<"Drink", 'String'>
     readonly quantity: FieldRef<"Drink", 'Int'>
-    readonly isOpened: FieldRef<"Drink", 'Boolean'>
+    readonly openedQuantity: FieldRef<"Drink", 'Int'>
     readonly createdAt: FieldRef<"Drink", 'DateTime'>
     readonly updatedAt: FieldRef<"Drink", 'DateTime'>
   }
@@ -3056,7 +3060,7 @@ export namespace Prisma {
     barcode: 'barcode',
     name: 'name',
     quantity: 'quantity',
-    isOpened: 'isOpened',
+    openedQuantity: 'openedQuantity',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3124,13 +3128,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -3208,7 +3205,7 @@ export namespace Prisma {
     barcode?: StringFilter<"Drink"> | string
     name?: StringFilter<"Drink"> | string
     quantity?: IntFilter<"Drink"> | number
-    isOpened?: BoolFilter<"Drink"> | boolean
+    openedQuantity?: IntFilter<"Drink"> | number
     createdAt?: DateTimeFilter<"Drink"> | Date | string
     updatedAt?: DateTimeFilter<"Drink"> | Date | string
   }
@@ -3218,7 +3215,7 @@ export namespace Prisma {
     barcode?: SortOrder
     name?: SortOrder
     quantity?: SortOrder
-    isOpened?: SortOrder
+    openedQuantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3231,7 +3228,7 @@ export namespace Prisma {
     NOT?: DrinkWhereInput | DrinkWhereInput[]
     name?: StringFilter<"Drink"> | string
     quantity?: IntFilter<"Drink"> | number
-    isOpened?: BoolFilter<"Drink"> | boolean
+    openedQuantity?: IntFilter<"Drink"> | number
     createdAt?: DateTimeFilter<"Drink"> | Date | string
     updatedAt?: DateTimeFilter<"Drink"> | Date | string
   }, "id" | "barcode">
@@ -3241,7 +3238,7 @@ export namespace Prisma {
     barcode?: SortOrder
     name?: SortOrder
     quantity?: SortOrder
-    isOpened?: SortOrder
+    openedQuantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: DrinkCountOrderByAggregateInput
@@ -3259,7 +3256,7 @@ export namespace Prisma {
     barcode?: StringWithAggregatesFilter<"Drink"> | string
     name?: StringWithAggregatesFilter<"Drink"> | string
     quantity?: IntWithAggregatesFilter<"Drink"> | number
-    isOpened?: BoolWithAggregatesFilter<"Drink"> | boolean
+    openedQuantity?: IntWithAggregatesFilter<"Drink"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
   }
@@ -3314,7 +3311,7 @@ export namespace Prisma {
     barcode: string
     name: string
     quantity?: number
-    isOpened?: boolean
+    openedQuantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3324,7 +3321,7 @@ export namespace Prisma {
     barcode: string
     name: string
     quantity?: number
-    isOpened?: boolean
+    openedQuantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3333,7 +3330,7 @@ export namespace Prisma {
     barcode?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    openedQuantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3343,7 +3340,7 @@ export namespace Prisma {
     barcode?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    openedQuantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3353,7 +3350,7 @@ export namespace Prisma {
     barcode: string
     name: string
     quantity?: number
-    isOpened?: boolean
+    openedQuantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3362,7 +3359,7 @@ export namespace Prisma {
     barcode?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    openedQuantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3372,7 +3369,7 @@ export namespace Prisma {
     barcode?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    openedQuantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3491,17 +3488,12 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type DrinkCountOrderByAggregateInput = {
     id?: SortOrder
     barcode?: SortOrder
     name?: SortOrder
     quantity?: SortOrder
-    isOpened?: SortOrder
+    openedQuantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3509,6 +3501,7 @@ export namespace Prisma {
   export type DrinkAvgOrderByAggregateInput = {
     id?: SortOrder
     quantity?: SortOrder
+    openedQuantity?: SortOrder
   }
 
   export type DrinkMaxOrderByAggregateInput = {
@@ -3516,7 +3509,7 @@ export namespace Prisma {
     barcode?: SortOrder
     name?: SortOrder
     quantity?: SortOrder
-    isOpened?: SortOrder
+    openedQuantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3526,7 +3519,7 @@ export namespace Prisma {
     barcode?: SortOrder
     name?: SortOrder
     quantity?: SortOrder
-    isOpened?: SortOrder
+    openedQuantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3534,14 +3527,7 @@ export namespace Prisma {
   export type DrinkSumOrderByAggregateInput = {
     id?: SortOrder
     quantity?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    openedQuantity?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3558,10 +3544,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3656,19 +3638,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
 
