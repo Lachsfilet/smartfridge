@@ -194,6 +194,7 @@ export function BarcodeScannerModal({
                   width="100%"
                   height={300}
                   formats={BARCODE_FORMATS}
+                  facingMode="user"
                 />
               </div>
               <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
