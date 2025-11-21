@@ -34,6 +34,10 @@ export function DrinkDialog({
       void utils.drink.getAll.invalidate();
       onClose();
     },
+    onError: (error) => {
+      alert(`Fehler beim Löschen: ${error.message}`);
+      setShowDeleteConfirm(false);
+    },
   });
 
   // Update local quantity when drink quantity changes (from external updates)
