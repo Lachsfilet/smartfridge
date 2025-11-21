@@ -48,13 +48,13 @@ export function DrinkDialog({
   const handleOpenDrinks = () => {
     const count = parseInt(openCount, 10);
     if (isNaN(count) || count < 1) {
-      alert("Please enter a valid number of drinks to open.");
+      alert("Bitte geben Sie eine gültige Anzahl an Getränken ein.");
       return;
     }
     
     const currentQty = parseInt(localQuantity, 10) || 0;
     if (count > currentQty) {
-      alert(`You only have ${currentQty} drinks available.`);
+      alert(`Sie haben nur ${currentQty} Getränke verfügbar.`);
       return;
     }
 
@@ -119,7 +119,7 @@ export function DrinkDialog({
                     : "bg-blue-100 text-blue-800 hover:bg-blue-200"
                 }`}
               >
-                {drink.isOpened ? "🍺 Opened" : "🥤 Closed"}
+                {drink.isOpened ? "🍺 Geöffnet" : "🥤 Geschlossen"}
               </button>
             </div>
           )}
@@ -128,7 +128,7 @@ export function DrinkDialog({
           {!drink.isOpened && parseInt(localQuantity, 10) > 0 && (
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">
-                Open Drinks:
+                Getränke öffnen:
               </label>
               <div className="flex items-center gap-3">
                 <button
@@ -151,7 +151,7 @@ export function DrinkDialog({
                     }
                   }}
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg text-center"
-                  placeholder="Number"
+                  placeholder="Anzahl"
                 />
                 <button
                   onClick={() => handleOpenCountChange(parseInt(openCount, 10) + 1)}
@@ -164,11 +164,11 @@ export function DrinkDialog({
                   onClick={handleOpenDrinks}
                   className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium"
                 >
-                  Open
+                  Öffnen
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                Enter the number of drinks to open (1 - {parseInt(localQuantity, 10)})
+                Geben Sie die Anzahl der zu öffnenden Getränke ein (1 - {parseInt(localQuantity, 10)})
               </p>
             </div>
           )}
@@ -176,7 +176,7 @@ export function DrinkDialog({
           {/* Quantity Controls */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Quantity:
+              Menge:
             </label>
             <div className="flex items-center justify-center gap-6">
               <button
@@ -213,7 +213,7 @@ export function DrinkDialog({
             onClick={handleClose}
             className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            Save & Close
+            Speichern & Schließen
           </button>
         </div>
       </div>

@@ -24,12 +24,12 @@ export function DrinkCard({
   const handleOpenDrinks = () => {
     const count = parseInt(openCount, 10);
     if (isNaN(count) || count < 1) {
-      alert("Please enter a valid number of drinks to open.");
+      alert("Bitte geben Sie eine gültige Anzahl an Getränken ein.");
       return;
     }
     
     if (count > drink.quantity) {
-      alert(`You only have ${drink.quantity} drinks available.`);
+      alert(`Sie haben nur ${drink.quantity} Getränke verfügbar.`);
       return;
     }
 
@@ -64,7 +64,7 @@ export function DrinkCard({
                     : "bg-blue-200 text-blue-800"
                 }`}
               >
-                {drink.isOpened ? "Opened" : "Closed"}
+                {drink.isOpened ? "Geöffnet" : "Geschlossen"}
               </button>
             </div>
           )}
@@ -126,7 +126,7 @@ export function DrinkCard({
               onClick={handleOpenDrinks}
               className="px-4 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium text-sm"
             >
-              Open
+              Öffnen
             </button>
           </div>
         </div>

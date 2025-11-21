@@ -110,7 +110,7 @@ export function BarcodeScannerModal({
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-gray-800">Scan Barcode</h2>
+            <h2 className="text-2xl font-bold text-gray-800">Barcode scannen</h2>
             <button
               onClick={() => {
                 onClose();
@@ -127,27 +127,27 @@ export function BarcodeScannerModal({
           <div className="mb-6">
             <form onSubmit={handleManualSubmit} className="space-y-3">
               <label className="block text-sm font-medium text-gray-700">
-                Enter Barcode Manually:
+                Barcode manuell eingeben:
               </label>
               <input
                 type="text"
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
-                placeholder="Enter barcode number..."
+                placeholder="Barcode-Nummer eingeben..."
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
-                Submit Barcode
+                Barcode absenden
               </button>
             </form>
           </div>
 
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px bg-gray-300"></div>
-            <span className="text-gray-500 text-sm">OR</span>
+            <span className="text-gray-500 text-sm">ODER</span>
             <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
@@ -176,7 +176,7 @@ export function BarcodeScannerModal({
                   d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
                 />
               </svg>
-              Use Camera Scanner
+              Kamera-Scanner verwenden
             </button>
           ) : (
             <div>
@@ -185,7 +185,7 @@ export function BarcodeScannerModal({
                   onClick={() => setUseCameraScanner(false)}
                   className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                 >
-                  ← Back to manual input
+                  ← Zurück zur manuellen Eingabe
                 </button>
               </div>
               <div className="bg-gray-900 rounded-lg overflow-hidden">
@@ -198,10 +198,10 @@ export function BarcodeScannerModal({
               </div>
               <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-800 text-center">
-                  📸 Point your camera at a barcode
+                  📸 Richten Sie Ihre Kamera auf einen Barcode
                 </p>
                 <p className="text-xs text-blue-600 text-center mt-1">
-                  Allow camera access when prompted by your browser
+                  Erlauben Sie den Kamerazugriff, wenn Ihr Browser Sie dazu auffordert
                 </p>
               </div>
             </div>
