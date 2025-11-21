@@ -131,7 +131,7 @@ export const drinkRouter = createTRPCRouter({
       return ctx.db.drink.update({
         where: { id: input.id },
         data: {
-          isOpened: true,
+          openedQuantity: input.count,
           quantity: drink.quantity - input.count,
         },
       });
