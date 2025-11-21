@@ -105,6 +105,38 @@ export const drinkRouter = createTRPCRouter({
       });
     }),
 
+  // Open drinks (mark as opened and reduce quantity)
+  openDrinks: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        count: z.number().int().min(1),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Get the current drink
+      const drink = await ctx.db.drink.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!drink) {
+        throw new Error("Drink not found");
+      }
+
+      if (input.count > drink.quantity) {
+        throw new Error("Cannot open more drinks than available");
+      }
+
+      // Update the drink: mark as opened and reduce quantity
+      return ctx.db.drink.update({
+        where: { id: input.id },
+        data: {
+          isOpened: true,
+          quantity: drink.quantity - input.count,
+        },
+      });
+    }),
+
   // Delete a drink
   delete: publicProcedure
     .input(z.object({ id: z.number() }))
