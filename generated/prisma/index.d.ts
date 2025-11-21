@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+/**
+ * Model Drink
+ * 
+ */
+export type Drink = $Result.DefaultSelection<Prisma.$DrinkPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -146,6 +151,16 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.drink`: Exposes CRUD operations for the **Drink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Drinks
+    * const drinks = await prisma.drink.findMany()
+    * ```
+    */
+  get drink(): Prisma.DrinkDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -587,7 +602,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Post: 'Post'
+    Post: 'Post',
+    Drink: 'Drink'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -606,7 +622,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post"
+      modelProps: "post" | "drink"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -681,6 +697,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PostCountArgs<ExtArgs>
             result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      Drink: {
+        payload: Prisma.$DrinkPayload<ExtArgs>
+        fields: Prisma.DrinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DrinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DrinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>
+          }
+          findFirst: {
+            args: Prisma.DrinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DrinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>
+          }
+          findMany: {
+            args: Prisma.DrinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>[]
+          }
+          create: {
+            args: Prisma.DrinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>
+          }
+          createMany: {
+            args: Prisma.DrinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DrinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>[]
+          }
+          delete: {
+            args: Prisma.DrinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>
+          }
+          update: {
+            args: Prisma.DrinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.DrinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DrinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DrinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.DrinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrinkPayload>
+          }
+          aggregate: {
+            args: Prisma.DrinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDrink>
+          }
+          groupBy: {
+            args: Prisma.DrinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DrinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DrinkCountArgs<ExtArgs>
+            result: $Utils.Optional<DrinkCountAggregateOutputType> | number
           }
         }
       }
@@ -781,6 +871,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     post?: PostOmit
+    drink?: DrinkOmit
   }
 
   /* Types for Logging */
@@ -1878,6 +1969,1065 @@ export namespace Prisma {
 
 
   /**
+   * Model Drink
+   */
+
+  export type AggregateDrink = {
+    _count: DrinkCountAggregateOutputType | null
+    _avg: DrinkAvgAggregateOutputType | null
+    _sum: DrinkSumAggregateOutputType | null
+    _min: DrinkMinAggregateOutputType | null
+    _max: DrinkMaxAggregateOutputType | null
+  }
+
+  export type DrinkAvgAggregateOutputType = {
+    id: number | null
+    quantity: number | null
+  }
+
+  export type DrinkSumAggregateOutputType = {
+    id: number | null
+    quantity: number | null
+  }
+
+  export type DrinkMinAggregateOutputType = {
+    id: number | null
+    barcode: string | null
+    name: string | null
+    quantity: number | null
+    isOpened: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DrinkMaxAggregateOutputType = {
+    id: number | null
+    barcode: string | null
+    name: string | null
+    quantity: number | null
+    isOpened: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DrinkCountAggregateOutputType = {
+    id: number
+    barcode: number
+    name: number
+    quantity: number
+    isOpened: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DrinkAvgAggregateInputType = {
+    id?: true
+    quantity?: true
+  }
+
+  export type DrinkSumAggregateInputType = {
+    id?: true
+    quantity?: true
+  }
+
+  export type DrinkMinAggregateInputType = {
+    id?: true
+    barcode?: true
+    name?: true
+    quantity?: true
+    isOpened?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DrinkMaxAggregateInputType = {
+    id?: true
+    barcode?: true
+    name?: true
+    quantity?: true
+    isOpened?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DrinkCountAggregateInputType = {
+    id?: true
+    barcode?: true
+    name?: true
+    quantity?: true
+    isOpened?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DrinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Drink to aggregate.
+     */
+    where?: DrinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drinks to fetch.
+     */
+    orderBy?: DrinkOrderByWithRelationInput | DrinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DrinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Drinks
+    **/
+    _count?: true | DrinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DrinkAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DrinkSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DrinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DrinkMaxAggregateInputType
+  }
+
+  export type GetDrinkAggregateType<T extends DrinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateDrink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDrink[P]>
+      : GetScalarType<T[P], AggregateDrink[P]>
+  }
+
+
+
+
+  export type DrinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrinkWhereInput
+    orderBy?: DrinkOrderByWithAggregationInput | DrinkOrderByWithAggregationInput[]
+    by: DrinkScalarFieldEnum[] | DrinkScalarFieldEnum
+    having?: DrinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DrinkCountAggregateInputType | true
+    _avg?: DrinkAvgAggregateInputType
+    _sum?: DrinkSumAggregateInputType
+    _min?: DrinkMinAggregateInputType
+    _max?: DrinkMaxAggregateInputType
+  }
+
+  export type DrinkGroupByOutputType = {
+    id: number
+    barcode: string
+    name: string
+    quantity: number
+    isOpened: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DrinkCountAggregateOutputType | null
+    _avg: DrinkAvgAggregateOutputType | null
+    _sum: DrinkSumAggregateOutputType | null
+    _min: DrinkMinAggregateOutputType | null
+    _max: DrinkMaxAggregateOutputType | null
+  }
+
+  type GetDrinkGroupByPayload<T extends DrinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DrinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DrinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DrinkGroupByOutputType[P]>
+            : GetScalarType<T[P], DrinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DrinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    quantity?: boolean
+    isOpened?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["drink"]>
+
+  export type DrinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    quantity?: boolean
+    isOpened?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["drink"]>
+
+  export type DrinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    quantity?: boolean
+    isOpened?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["drink"]>
+
+  export type DrinkSelectScalar = {
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    quantity?: boolean
+    isOpened?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DrinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "name" | "quantity" | "isOpened" | "createdAt" | "updatedAt", ExtArgs["result"]["drink"]>
+
+  export type $DrinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Drink"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      barcode: string
+      name: string
+      quantity: number
+      isOpened: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["drink"]>
+    composites: {}
+  }
+
+  type DrinkGetPayload<S extends boolean | null | undefined | DrinkDefaultArgs> = $Result.GetResult<Prisma.$DrinkPayload, S>
+
+  type DrinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DrinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DrinkCountAggregateInputType | true
+    }
+
+  export interface DrinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Drink'], meta: { name: 'Drink' } }
+    /**
+     * Find zero or one Drink that matches the filter.
+     * @param {DrinkFindUniqueArgs} args - Arguments to find a Drink
+     * @example
+     * // Get one Drink
+     * const drink = await prisma.drink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DrinkFindUniqueArgs>(args: SelectSubset<T, DrinkFindUniqueArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Drink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DrinkFindUniqueOrThrowArgs} args - Arguments to find a Drink
+     * @example
+     * // Get one Drink
+     * const drink = await prisma.drink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DrinkFindUniqueOrThrowArgs>(args: SelectSubset<T, DrinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Drink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkFindFirstArgs} args - Arguments to find a Drink
+     * @example
+     * // Get one Drink
+     * const drink = await prisma.drink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DrinkFindFirstArgs>(args?: SelectSubset<T, DrinkFindFirstArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Drink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkFindFirstOrThrowArgs} args - Arguments to find a Drink
+     * @example
+     * // Get one Drink
+     * const drink = await prisma.drink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DrinkFindFirstOrThrowArgs>(args?: SelectSubset<T, DrinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Drinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Drinks
+     * const drinks = await prisma.drink.findMany()
+     * 
+     * // Get first 10 Drinks
+     * const drinks = await prisma.drink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const drinkWithIdOnly = await prisma.drink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DrinkFindManyArgs>(args?: SelectSubset<T, DrinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Drink.
+     * @param {DrinkCreateArgs} args - Arguments to create a Drink.
+     * @example
+     * // Create one Drink
+     * const Drink = await prisma.drink.create({
+     *   data: {
+     *     // ... data to create a Drink
+     *   }
+     * })
+     * 
+     */
+    create<T extends DrinkCreateArgs>(args: SelectSubset<T, DrinkCreateArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Drinks.
+     * @param {DrinkCreateManyArgs} args - Arguments to create many Drinks.
+     * @example
+     * // Create many Drinks
+     * const drink = await prisma.drink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DrinkCreateManyArgs>(args?: SelectSubset<T, DrinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Drinks and returns the data saved in the database.
+     * @param {DrinkCreateManyAndReturnArgs} args - Arguments to create many Drinks.
+     * @example
+     * // Create many Drinks
+     * const drink = await prisma.drink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Drinks and only return the `id`
+     * const drinkWithIdOnly = await prisma.drink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DrinkCreateManyAndReturnArgs>(args?: SelectSubset<T, DrinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Drink.
+     * @param {DrinkDeleteArgs} args - Arguments to delete one Drink.
+     * @example
+     * // Delete one Drink
+     * const Drink = await prisma.drink.delete({
+     *   where: {
+     *     // ... filter to delete one Drink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DrinkDeleteArgs>(args: SelectSubset<T, DrinkDeleteArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Drink.
+     * @param {DrinkUpdateArgs} args - Arguments to update one Drink.
+     * @example
+     * // Update one Drink
+     * const drink = await prisma.drink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DrinkUpdateArgs>(args: SelectSubset<T, DrinkUpdateArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Drinks.
+     * @param {DrinkDeleteManyArgs} args - Arguments to filter Drinks to delete.
+     * @example
+     * // Delete a few Drinks
+     * const { count } = await prisma.drink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DrinkDeleteManyArgs>(args?: SelectSubset<T, DrinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Drinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Drinks
+     * const drink = await prisma.drink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DrinkUpdateManyArgs>(args: SelectSubset<T, DrinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Drinks and returns the data updated in the database.
+     * @param {DrinkUpdateManyAndReturnArgs} args - Arguments to update many Drinks.
+     * @example
+     * // Update many Drinks
+     * const drink = await prisma.drink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Drinks and only return the `id`
+     * const drinkWithIdOnly = await prisma.drink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DrinkUpdateManyAndReturnArgs>(args: SelectSubset<T, DrinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Drink.
+     * @param {DrinkUpsertArgs} args - Arguments to update or create a Drink.
+     * @example
+     * // Update or create a Drink
+     * const drink = await prisma.drink.upsert({
+     *   create: {
+     *     // ... data to create a Drink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Drink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DrinkUpsertArgs>(args: SelectSubset<T, DrinkUpsertArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Drinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkCountArgs} args - Arguments to filter Drinks to count.
+     * @example
+     * // Count the number of Drinks
+     * const count = await prisma.drink.count({
+     *   where: {
+     *     // ... the filter for the Drinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends DrinkCountArgs>(
+      args?: Subset<T, DrinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DrinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Drink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DrinkAggregateArgs>(args: Subset<T, DrinkAggregateArgs>): Prisma.PrismaPromise<GetDrinkAggregateType<T>>
+
+    /**
+     * Group by Drink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DrinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DrinkGroupByArgs['orderBy'] }
+        : { orderBy?: DrinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DrinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDrinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Drink model
+   */
+  readonly fields: DrinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Drink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DrinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Drink model
+   */
+  interface DrinkFieldRefs {
+    readonly id: FieldRef<"Drink", 'Int'>
+    readonly barcode: FieldRef<"Drink", 'String'>
+    readonly name: FieldRef<"Drink", 'String'>
+    readonly quantity: FieldRef<"Drink", 'Int'>
+    readonly isOpened: FieldRef<"Drink", 'Boolean'>
+    readonly createdAt: FieldRef<"Drink", 'DateTime'>
+    readonly updatedAt: FieldRef<"Drink", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Drink findUnique
+   */
+  export type DrinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Filter, which Drink to fetch.
+     */
+    where: DrinkWhereUniqueInput
+  }
+
+  /**
+   * Drink findUniqueOrThrow
+   */
+  export type DrinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Filter, which Drink to fetch.
+     */
+    where: DrinkWhereUniqueInput
+  }
+
+  /**
+   * Drink findFirst
+   */
+  export type DrinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Filter, which Drink to fetch.
+     */
+    where?: DrinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drinks to fetch.
+     */
+    orderBy?: DrinkOrderByWithRelationInput | DrinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Drinks.
+     */
+    cursor?: DrinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Drinks.
+     */
+    distinct?: DrinkScalarFieldEnum | DrinkScalarFieldEnum[]
+  }
+
+  /**
+   * Drink findFirstOrThrow
+   */
+  export type DrinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Filter, which Drink to fetch.
+     */
+    where?: DrinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drinks to fetch.
+     */
+    orderBy?: DrinkOrderByWithRelationInput | DrinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Drinks.
+     */
+    cursor?: DrinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Drinks.
+     */
+    distinct?: DrinkScalarFieldEnum | DrinkScalarFieldEnum[]
+  }
+
+  /**
+   * Drink findMany
+   */
+  export type DrinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Filter, which Drinks to fetch.
+     */
+    where?: DrinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drinks to fetch.
+     */
+    orderBy?: DrinkOrderByWithRelationInput | DrinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Drinks.
+     */
+    cursor?: DrinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drinks.
+     */
+    skip?: number
+    distinct?: DrinkScalarFieldEnum | DrinkScalarFieldEnum[]
+  }
+
+  /**
+   * Drink create
+   */
+  export type DrinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Drink.
+     */
+    data: XOR<DrinkCreateInput, DrinkUncheckedCreateInput>
+  }
+
+  /**
+   * Drink createMany
+   */
+  export type DrinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Drinks.
+     */
+    data: DrinkCreateManyInput | DrinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Drink createManyAndReturn
+   */
+  export type DrinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many Drinks.
+     */
+    data: DrinkCreateManyInput | DrinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Drink update
+   */
+  export type DrinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Drink.
+     */
+    data: XOR<DrinkUpdateInput, DrinkUncheckedUpdateInput>
+    /**
+     * Choose, which Drink to update.
+     */
+    where: DrinkWhereUniqueInput
+  }
+
+  /**
+   * Drink updateMany
+   */
+  export type DrinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Drinks.
+     */
+    data: XOR<DrinkUpdateManyMutationInput, DrinkUncheckedUpdateManyInput>
+    /**
+     * Filter which Drinks to update
+     */
+    where?: DrinkWhereInput
+    /**
+     * Limit how many Drinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Drink updateManyAndReturn
+   */
+  export type DrinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * The data used to update Drinks.
+     */
+    data: XOR<DrinkUpdateManyMutationInput, DrinkUncheckedUpdateManyInput>
+    /**
+     * Filter which Drinks to update
+     */
+    where?: DrinkWhereInput
+    /**
+     * Limit how many Drinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Drink upsert
+   */
+  export type DrinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Drink to update in case it exists.
+     */
+    where: DrinkWhereUniqueInput
+    /**
+     * In case the Drink found by the `where` argument doesn't exist, create a new Drink with this data.
+     */
+    create: XOR<DrinkCreateInput, DrinkUncheckedCreateInput>
+    /**
+     * In case the Drink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DrinkUpdateInput, DrinkUncheckedUpdateInput>
+  }
+
+  /**
+   * Drink delete
+   */
+  export type DrinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Filter which Drink to delete.
+     */
+    where: DrinkWhereUniqueInput
+  }
+
+  /**
+   * Drink deleteMany
+   */
+  export type DrinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Drinks to delete
+     */
+    where?: DrinkWhereInput
+    /**
+     * Limit how many Drinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Drink without action
+   */
+  export type DrinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drink
+     */
+    select?: DrinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drink
+     */
+    omit?: DrinkOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1899,6 +3049,19 @@ export namespace Prisma {
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+  export const DrinkScalarFieldEnum: {
+    id: 'id',
+    barcode: 'barcode',
+    name: 'name',
+    quantity: 'quantity',
+    isOpened: 'isOpened',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DrinkScalarFieldEnum = (typeof DrinkScalarFieldEnum)[keyof typeof DrinkScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1961,6 +3124,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -2030,6 +3200,70 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
+  export type DrinkWhereInput = {
+    AND?: DrinkWhereInput | DrinkWhereInput[]
+    OR?: DrinkWhereInput[]
+    NOT?: DrinkWhereInput | DrinkWhereInput[]
+    id?: IntFilter<"Drink"> | number
+    barcode?: StringFilter<"Drink"> | string
+    name?: StringFilter<"Drink"> | string
+    quantity?: IntFilter<"Drink"> | number
+    isOpened?: BoolFilter<"Drink"> | boolean
+    createdAt?: DateTimeFilter<"Drink"> | Date | string
+    updatedAt?: DateTimeFilter<"Drink"> | Date | string
+  }
+
+  export type DrinkOrderByWithRelationInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    quantity?: SortOrder
+    isOpened?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DrinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    barcode?: string
+    AND?: DrinkWhereInput | DrinkWhereInput[]
+    OR?: DrinkWhereInput[]
+    NOT?: DrinkWhereInput | DrinkWhereInput[]
+    name?: StringFilter<"Drink"> | string
+    quantity?: IntFilter<"Drink"> | number
+    isOpened?: BoolFilter<"Drink"> | boolean
+    createdAt?: DateTimeFilter<"Drink"> | Date | string
+    updatedAt?: DateTimeFilter<"Drink"> | Date | string
+  }, "id" | "barcode">
+
+  export type DrinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    quantity?: SortOrder
+    isOpened?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DrinkCountOrderByAggregateInput
+    _avg?: DrinkAvgOrderByAggregateInput
+    _max?: DrinkMaxOrderByAggregateInput
+    _min?: DrinkMinOrderByAggregateInput
+    _sum?: DrinkSumOrderByAggregateInput
+  }
+
+  export type DrinkScalarWhereWithAggregatesInput = {
+    AND?: DrinkScalarWhereWithAggregatesInput | DrinkScalarWhereWithAggregatesInput[]
+    OR?: DrinkScalarWhereWithAggregatesInput[]
+    NOT?: DrinkScalarWhereWithAggregatesInput | DrinkScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Drink"> | number
+    barcode?: StringWithAggregatesFilter<"Drink"> | string
+    name?: StringWithAggregatesFilter<"Drink"> | string
+    quantity?: IntWithAggregatesFilter<"Drink"> | number
+    isOpened?: BoolWithAggregatesFilter<"Drink"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
+  }
+
   export type PostCreateInput = {
     name: string
     createdAt?: Date | string
@@ -2072,6 +3306,73 @@ export namespace Prisma {
   export type PostUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrinkCreateInput = {
+    barcode: string
+    name: string
+    quantity?: number
+    isOpened?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DrinkUncheckedCreateInput = {
+    id?: number
+    barcode: string
+    name: string
+    quantity?: number
+    isOpened?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DrinkUpdateInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrinkUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrinkCreateManyInput = {
+    id?: number
+    barcode: string
+    name: string
+    quantity?: number
+    isOpened?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DrinkUpdateManyMutationInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    isOpened?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrinkUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    isOpened?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2190,6 +3491,59 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DrinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    quantity?: SortOrder
+    isOpened?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DrinkAvgOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type DrinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    quantity?: SortOrder
+    isOpened?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DrinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    quantity?: SortOrder
+    isOpened?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DrinkSumOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2204,6 +3558,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2298,6 +3656,19 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
 
