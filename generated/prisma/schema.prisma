@@ -19,3 +19,16 @@ model Post {
 
   @@index([name])
 }
+
+model Drink {
+  id        Int      @id @default(autoincrement())
+  barcode   String   @unique
+  name      String
+  quantity  Int      @default(0)
+  isOpened  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([barcode])
+  @@index([isOpened])
+}
