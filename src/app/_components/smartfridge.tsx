@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { api } from "@/trpc/react";
 import { BarcodeScannerModal } from "./barcode-scanner-modal";
 import { DrinkCard } from "./drink-card";
@@ -37,13 +37,15 @@ export function SmartFridge() {
   });
 
   // Auto-refresh drinks overview every minute
+  const refreshDrinks = useCallback(() => {
+    void refetch();
+  }, [refetch]);
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      void refetch();
-    }, 60000); // 60000ms = 1 minute
+    const intervalId = setInterval(refreshDrinks, 60000); // 60000ms = 1 minute
 
     return () => clearInterval(intervalId);
-  }, [refetch]);
+  }, [refreshDrinks]);
 
   const openedDrinks = drinks?.filter((d) => d.openedQuantity > 0 && d.quantity > 0) ?? [];
   const closedDrinks = drinks?.filter((d) => d.openedQuantity === 0 && d.quantity > 0) ?? [];
