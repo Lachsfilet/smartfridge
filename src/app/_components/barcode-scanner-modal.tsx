@@ -106,6 +106,10 @@ export function BarcodeScannerModal({
     }
   };
 
+  const toggleFacingMode = () => {
+    setFacingMode(facingMode === "user" ? "environment" : "user");
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
@@ -189,7 +193,7 @@ export function BarcodeScannerModal({
                   ← Zurück zur manuellen Eingabe
                 </button>
                 <button
-                  onClick={() => setFacingMode(facingMode === "user" ? "environment" : "user")}
+                  onClick={toggleFacingMode}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium flex items-center gap-1"
                   title={facingMode === "user" ? "Zur Rückkamera wechseln" : "Zur Frontkamera wechseln"}
                 >
