@@ -73,7 +73,7 @@ export function DrinkDialog({
     if (currentOpened > 0) {
       setLocalOpenedQuantity((currentOpened - 1).toString());
     }
-  };
+  };;
 
   const handleDelete = () => {
     deleteMutation.mutate({ id: drink.id });
@@ -145,13 +145,20 @@ export function DrinkDialog({
               <input
                 type="number"
                 min="0"
-                max={localQuantity}
+                max={parseInt(localQuantity, 10) || 0}
                 value={localOpenedQuantity}
                 onChange={(e) => {
                   const val = e.target.value;
-                  // Allow empty string for editing, otherwise validate
-                  if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0)) {
+                  const maxAllowed = parseInt(localQuantity, 10) || 0;
+                  // Allow empty string for editing
+                  if (val === "") {
                     setLocalOpenedQuantity(val);
+                  } else {
+                    const numVal = parseInt(val, 10);
+                    // Validate: must be non-negative and not exceed total quantity
+                    if (!isNaN(numVal) && numVal >= 0 && numVal <= maxAllowed) {
+                      setLocalOpenedQuantity(val);
+                    }
                   }
                 }}
                 className="text-3xl font-bold text-green-800 bg-green-100 w-24 text-center border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent py-2"
