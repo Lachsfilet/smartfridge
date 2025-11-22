@@ -104,6 +104,11 @@ export function DrinkDialog({
     onClose();
   };
 
+  const handleCloseWithoutSave = () => {
+    setShowDeleteConfirm(false);
+    onClose();
+  }
+    
   const closedQuantity = Math.max(0, parseInt(localQuantity, 10) - drink.openedQuantity);
 
   return (
@@ -119,7 +124,7 @@ export function DrinkDialog({
             </div>
             <button
               onClick={() => {
-                handleClose();
+                handleCloseWithoutSave();
                 setOpenCount("1");
               }}
               className="text-gray-500 hover:text-gray-700 text-2xl"
