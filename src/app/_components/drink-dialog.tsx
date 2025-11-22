@@ -24,8 +24,8 @@ export function DrinkDialog({
   onQuantityChange,
   onOpenedQuantityChange,
 }: DrinkDialogProps) {
-  const [openCount, setOpenCount] = useState("1");
   const [localQuantity, setLocalQuantity] = useState(drink.quantity.toString());
+  const [localOpenedQuantity, setLocalOpenedQuantity] = useState(drink.openedQuantity.toString());
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const utils = api.useUtils();
@@ -40,10 +40,11 @@ export function DrinkDialog({
     },
   });
 
-  // Update local quantity when drink quantity changes (from external updates)
+  // Update local quantities when drink quantities change (from external updates)
   useEffect(() => {
     setLocalQuantity(drink.quantity.toString());
-  }, [drink.quantity]);
+    setLocalOpenedQuantity(drink.openedQuantity.toString());
+  }, [drink.quantity, drink.openedQuantity]);
 
   if (!isOpen) return null;
 
@@ -59,34 +60,18 @@ export function DrinkDialog({
     }
   };
 
-  const handleOpenDrinks = () => {
-    const count = parseInt(openCount, 10);
-    if (isNaN(count) || count < 1) {
-      alert("Bitte geben Sie eine gültige Anzahl an Getränken ein.");
-      return;
+  const handleOpenedIncrement = () => {
+    const currentOpened = parseInt(localOpenedQuantity, 10) || 0;
+    const currentTotal = parseInt(localQuantity, 10) || 0;
+    if (currentOpened < currentTotal) {
+      setLocalOpenedQuantity((currentOpened + 1).toString());
     }
-    
-    const currentQty = parseInt(localQuantity, 10) || 0;
-    const closedQuantity = Math.max(0, currentQty - drink.openedQuantity);
-    
-    if (count > closedQuantity) {
-      alert(`Sie haben nur ${closedQuantity} geschlossene Getränke verfügbar.`);
-      return;
-    }
-
-    // Increase the opened quantity
-    const newOpenedQuantity = drink.openedQuantity + count;
-    onOpenedQuantityChange(drink.id, newOpenedQuantity);
-    
-    // Reset the input
-    setOpenCount("1");
   };
 
-  const handleOpenCountChange = (newCount: number) => {
-    const currentQty = parseInt(localQuantity, 10) || 0;
-    const closedQuantity = Math.max(0, currentQty - drink.openedQuantity);
-    if (newCount >= 1 && newCount <= closedQuantity) {
-      setOpenCount(newCount.toString());
+  const handleOpenedDecrement = () => {
+    const currentOpened = parseInt(localOpenedQuantity, 10) || 0;
+    if (currentOpened > 0) {
+      setLocalOpenedQuantity((currentOpened - 1).toString());
     }
   };
 
@@ -95,21 +80,33 @@ export function DrinkDialog({
   };
 
   const handleClose = () => {
-    // Submit the quantity changes
+    // Submit both quantity and opened quantity changes
     const finalQuantity = parseInt(localQuantity, 10);
+    const finalOpenedQuantity = parseInt(localOpenedQuantity, 10);
+    
     // If empty or invalid, default to 0
     const validQuantity = !isNaN(finalQuantity) && finalQuantity >= 0 ? finalQuantity : 0;
+    const validOpenedQuantity = !isNaN(finalOpenedQuantity) && finalOpenedQuantity >= 0 ? finalOpenedQuantity : 0;
+    
+    // Ensure opened quantity doesn't exceed total quantity
+    const constrainedOpenedQuantity = Math.min(validOpenedQuantity, validQuantity);
+    
     onQuantityChange(drink.id, validQuantity);
+    if (constrainedOpenedQuantity !== drink.openedQuantity) {
+      onOpenedQuantityChange(drink.id, constrainedOpenedQuantity);
+    }
+    
     setShowDeleteConfirm(false);
     onClose();
   };
 
   const handleCloseWithoutSave = () => {
+    // Reset local state to original values
+    setLocalQuantity(drink.quantity.toString());
+    setLocalOpenedQuantity(drink.openedQuantity.toString());
     setShowDeleteConfirm(false);
     onClose();
   }
-    
-  const closedQuantity = Math.max(0, parseInt(localQuantity, 10) - drink.openedQuantity);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -125,7 +122,6 @@ export function DrinkDialog({
             <button
               onClick={() => {
                 handleCloseWithoutSave();
-                setOpenCount("1");
               }}
               className="text-gray-500 hover:text-gray-700 text-2xl"
             >
@@ -133,82 +129,42 @@ export function DrinkDialog({
             </button>
           </div>
 
-          {/* Opened Quantity Display and Controls */}
-          {drink.openedQuantity > 0 && parseInt(localQuantity, 10) > 0 && (
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Geöffnete Getränke:
-              </label>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => onOpenedQuantityChange(drink.id, Math.max(0, drink.openedQuantity - 1))}
-                  disabled={drink.openedQuantity === 0}
-                  className="w-10 h-10 rounded-full bg-orange-500 text-white font-bold text-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all"
-                >
-                  −
-                </button>
-                <span className="text-2xl font-semibold text-green-800 bg-green-100 px-6 py-2 rounded-lg">
-                  {drink.openedQuantity}
-                </span>
-                <button
-                  onClick={() => onOpenedQuantityChange(drink.id, Math.min(parseInt(localQuantity, 10), drink.openedQuantity + 1))}
-                  disabled={drink.openedQuantity >= parseInt(localQuantity, 10)}
-                  className="w-10 h-10 rounded-full bg-orange-500 text-white font-bold text-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all"
-                >
-                  +
-                </button>
-              </div>
+          {/* Opened Quantity Controls */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Geöffnete Getränke:
+            </label>
+            <div className="flex items-center justify-center gap-4">
+              <button
+                onClick={handleOpenedDecrement}
+                disabled={parseInt(localOpenedQuantity, 10) === 0}
+                className="w-12 h-12 rounded-full bg-orange-500 text-white font-bold text-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all shadow-md"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                min="0"
+                max={localQuantity}
+                value={localOpenedQuantity}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  // Allow empty string for editing, otherwise validate
+                  if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0)) {
+                    setLocalOpenedQuantity(val);
+                  }
+                }}
+                className="text-3xl font-bold text-green-800 bg-green-100 w-24 text-center border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent py-2"
+              />
+              <button
+                onClick={handleOpenedIncrement}
+                disabled={parseInt(localOpenedQuantity, 10) >= parseInt(localQuantity, 10)}
+                className="w-12 h-12 rounded-full bg-orange-500 text-white font-bold text-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all shadow-md"
+              >
+                +
+              </button>
             </div>
-          )}
-
-          {/* Open Drinks Section - Only show if there are closed drinks */}
-          {closedQuantity > 0 && (
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Getränke öffnen:
-              </label>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => handleOpenCountChange(parseInt(openCount, 10) - 1)}
-                  disabled={parseInt(openCount, 10) <= 1}
-                  className="w-12 h-12 rounded-full bg-orange-500 text-white font-bold text-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all shadow-md"
-                >
-                  −
-                </button>
-                <input
-                  type="number"
-                  min="1"
-                  max={closedQuantity}
-                  value={openCount}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    // Allow empty string for editing, otherwise validate within range
-                    if (val === "" || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 1)) {
-                      setOpenCount(val);
-                    }
-                  }}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg text-center"
-                  placeholder="Anzahl"
-                />
-                <button
-                  onClick={() => handleOpenCountChange(parseInt(openCount, 10) + 1)}
-                  disabled={parseInt(openCount, 10) >= closedQuantity}
-                  className="w-12 h-12 rounded-full bg-orange-500 text-white font-bold text-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-orange-600 active:scale-95 transition-all shadow-md"
-                >
-                  +
-                </button>
-                <button
-                  onClick={handleOpenDrinks}
-                  className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium"
-                >
-                  Öffnen
-                </button>
-              </div>
-              <p className="text-xs text-gray-500 mt-2">
-                Geben Sie die Anzahl der zu öffnenden Getränke ein (1 - {closedQuantity})
-              </p>
-            </div>
-          )}
+          </div>
 
           {/* Quantity Controls */}
           <div className="mb-6">
