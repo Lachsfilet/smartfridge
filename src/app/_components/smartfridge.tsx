@@ -108,11 +108,12 @@ export function SmartFridge() {
               </div>
               <div className="space-y-3">
                 {openedDrinks.map((drink) => (
-                  <DrinkCard
-                    key={drink.id}
-                    drink={drink}
-                    onQuantityChange={handleQuantityChange}
-                  />
+                  <div key={drink.id} onClick={() => setSelectedDrink(drink)} className="cursor-pointer">
+                    <DrinkCard
+                      drink={drink}
+                      onQuantityChange={handleQuantityChange}
+                    />
+                  </div>
                 ))}
               </div>
             </section>
@@ -129,11 +130,12 @@ export function SmartFridge() {
               </div>
               <div className="space-y-3">
                 {closedDrinks.map((drink) => (
-                  <DrinkCard
-                    key={drink.id}
-                    drink={drink}
-                    onQuantityChange={handleQuantityChange}
-                  />
+                  <div key={drink.id} onClick={() => setSelectedDrink(drink)} className="cursor-pointer">
+                    <DrinkCard
+                      drink={drink}
+                      onQuantityChange={handleQuantityChange}
+                    />
+                  </div>
                 ))}
               </div>
             </section>
@@ -150,11 +152,12 @@ export function SmartFridge() {
               </div>
               <div className="space-y-3">
                 {emptyDrinks.map((drink) => (
-                  <DrinkCard
-                    key={drink.id}
-                    drink={drink}
-                    onQuantityChange={handleQuantityChange}
-                  />
+                  <div key={drink.id} onClick={() => setSelectedDrink(drink)} className="cursor-pointer">
+                    <DrinkCard
+                      drink={drink}
+                      onQuantityChange={handleQuantityChange}
+                    />
+                  </div>
                 ))}
               </div>
             </section>
@@ -172,7 +175,7 @@ export function SmartFridge() {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsScannerOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 md:w-16 md:h-16 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 md:w-16 md:h-16 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 acti[...]"
         aria-label="Barcode scannen"
       >
         <svg
@@ -186,12 +189,12 @@ export function SmartFridge() {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"
+            d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.12[...]"
           />
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"
+            d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h[...]"
           />
         </svg>
       </button>

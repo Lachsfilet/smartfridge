@@ -39,7 +39,10 @@ export function DrinkCard({
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => onQuantityChange(drink.id, drink.quantity - 1)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click when decrementing
+              onQuantityChange(drink.id, drink.quantity - 1);
+            }}
             disabled={drink.quantity === 0}
             className="w-10 h-10 rounded-full bg-red-500 text-white font-bold text-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-red-600 active:scale-95 transition-all"
           >
@@ -49,7 +52,10 @@ export function DrinkCard({
             {drink.quantity}
           </span>
           <button
-            onClick={() => onQuantityChange(drink.id, drink.quantity + 1)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click when incrementing
+              onQuantityChange(drink.id, drink.quantity + 1);
+            }}
             className="w-10 h-10 rounded-full bg-green-500 text-white font-bold text-xl hover:bg-green-600 active:scale-95 transition-all"
           >
             +
