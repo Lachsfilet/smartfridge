@@ -128,7 +128,7 @@ export function DrinkDialog({
                         const val = e.target.value;
                         setLocalName(val);
                     }}
-                    className="text-2xl font-bold w-92 text-gray-800 px-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent py-2"
+                    className="text-2xl font-bold text-gray-800 w-[95%] px-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent py-2"
                 />
                 <label className="block text-sm font-medium text-gray-700 mt-2">
                     Barcode:
