@@ -50,6 +50,32 @@ export const drinkRouter = createTRPCRouter({
             });
         }),
 
+    updateBaseData: publicProcedure
+        .input(
+            z.object({
+                id: z.number(),
+                name: z.string(),
+                barcode: z.string(),
+            })
+        )
+        .mutation(async ({ctx, input}) => {
+            const drink = await ctx.db.drink.findUnique({
+                where: {id: input.id},
+            });
+
+            if (!drink) {
+                throw new Error("Drink not found");
+            }
+
+            return ctx.db.drink.update({
+                where: {id: input.id},
+                data: {
+                    name: input.name,
+                    barcode: input.barcode,
+                },
+            });
+        }),
+
     // Update drink quantity
     updateQuantity: publicProcedure
         .input(

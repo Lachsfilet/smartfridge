@@ -28,6 +28,12 @@ export function SmartFridge() {
         },
     });
 
+    const updateBaseDataMutation = api.drink.updateBaseData.useMutation({
+        onSuccess: () => {
+            void refetch();
+        },
+    });
+
     const updatePfandQuantityMutation = api.drink.updatePfand.useMutation({
         onSuccess: () => {
             void refetchPfand();
@@ -105,6 +111,16 @@ export function SmartFridge() {
         updateOpenedQuantityMutation.mutate({
             id,
             openedQuantity: newOpenedQuantity,
+        });
+    };
+
+    const handleBaseDataChange = (id: number, name: string, barcode: string) => {
+        if (barcode === "" || name === "") return;
+
+        updateBaseDataMutation.mutate({
+            id,
+            name: name,
+            barcode: barcode
         });
     };
 
@@ -289,6 +305,7 @@ export function SmartFridge() {
                     onClose={() => setSelectedDrink(null)}
                     onQuantityChange={handleQuantityChange}
                     onOpenedQuantityChange={handleOpenedQuantityChange}
+                    onBaseDataChange={handleBaseDataChange}
                 />
             )}
 

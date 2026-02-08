@@ -15,6 +15,7 @@ interface DrinkDialogProps {
   onClose: () => void;
   onQuantityChange: (id: number, quantity: number) => void;
   onOpenedQuantityChange: (id: number, openedQuantity: number) => void;
+  onBaseDataChange: (id: number, name: string, barcode: string) => void;
 }
 
 export function DrinkDialog({
@@ -23,9 +24,12 @@ export function DrinkDialog({
   onClose,
   onQuantityChange,
   onOpenedQuantityChange,
+    onBaseDataChange
 }: DrinkDialogProps) {
   const [localQuantity, setLocalQuantity] = useState(drink.quantity.toString());
   const [localOpenedQuantity, setLocalOpenedQuantity] = useState(drink.openedQuantity.toString());
+  const [localName, setLocalName] = useState(drink.name)
+  const [localBarcode, setLocalBarcode] = useState(drink.barcode)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const utils = api.useUtils();
@@ -95,6 +99,8 @@ export function DrinkDialog({
     if (constrainedOpenedQuantity !== drink.openedQuantity) {
       onOpenedQuantityChange(drink.id, constrainedOpenedQuantity);
     }
+
+    onBaseDataChange(drink.id, localName, localBarcode)
     
     setShowDeleteConfirm(false);
     onClose();
@@ -114,10 +120,29 @@ export function DrinkDialog({
         <div className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">{drink.name}</h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Barcode: {drink.barcode}
-              </p>
+                <input
+                    type="text"
+                    min="0"
+                    value={localName}
+                    onChange={(e) => {
+                        const val = e.target.value;
+                        setLocalName(val);
+                    }}
+                    className="text-2xl font-bold w-92 text-gray-800 px-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent py-2"
+                />
+                <label className="block text-sm font-medium text-gray-700 mt-2">
+                    Barcode:
+                </label>
+                  <input
+                      type="text"
+                      min="0"
+                      value={localBarcode}
+                      onChange={(e) => {
+                          const val = e.target.value;
+                          setLocalBarcode(val);
+                      }}
+                      className="text-sm text-gray-500 w-32 text-center border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent py-2"
+                  />
             </div>
             <button
               onClick={() => {
