@@ -11,13 +11,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Pfand {
+  id        Int       @id @default(autoincrement())
+  quantity  Int
+  pfandType PfandType
 
-  @@index([name])
+  @@index([quantity])
 }
 
 model Drink {
@@ -31,4 +30,10 @@ model Drink {
 
   @@index([barcode])
   @@index([openedQuantity])
+}
+
+enum PfandType {
+  EINWEG
+  MEHRWEG
+  GLAS
 }

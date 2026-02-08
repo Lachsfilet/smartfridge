@@ -14,15 +14,33 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model Post
+ * Model Pfand
  * 
  */
-export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+export type Pfand = $Result.DefaultSelection<Prisma.$PfandPayload>
 /**
  * Model Drink
  * 
  */
 export type Drink = $Result.DefaultSelection<Prisma.$DrinkPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const PfandType: {
+  EINWEG: 'EINWEG',
+  MEHRWEG: 'MEHRWEG',
+  GLAS: 'GLAS'
+};
+
+export type PfandType = (typeof PfandType)[keyof typeof PfandType]
+
+}
+
+export type PfandType = $Enums.PfandType
+
+export const PfandType: typeof $Enums.PfandType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -31,8 +49,8 @@ export type Drink = $Result.DefaultSelection<Prisma.$DrinkPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Posts
- * const posts = await prisma.post.findMany()
+ * // Fetch zero or more Pfands
+ * const pfands = await prisma.pfand.findMany()
  * ```
  *
  *
@@ -52,8 +70,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Posts
-   * const posts = await prisma.post.findMany()
+   * // Fetch zero or more Pfands
+   * const pfands = await prisma.pfand.findMany()
    * ```
    *
    *
@@ -143,14 +161,14 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.post`: Exposes CRUD operations for the **Post** model.
+   * `prisma.pfand`: Exposes CRUD operations for the **Pfand** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Posts
-    * const posts = await prisma.post.findMany()
+    * // Fetch zero or more Pfands
+    * const pfands = await prisma.pfand.findMany()
     * ```
     */
-  get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+  get pfand(): Prisma.PfandDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.drink`: Exposes CRUD operations for the **Drink** model.
@@ -602,7 +620,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Post: 'Post',
+    Pfand: 'Pfand',
     Drink: 'Drink'
   };
 
@@ -622,81 +640,81 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "drink"
+      modelProps: "pfand" | "drink"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      Post: {
-        payload: Prisma.$PostPayload<ExtArgs>
-        fields: Prisma.PostFieldRefs
+      Pfand: {
+        payload: Prisma.$PfandPayload<ExtArgs>
+        fields: Prisma.PfandFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PostFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
+            args: Prisma.PfandFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PostFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.PfandFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>
           }
           findFirst: {
-            args: Prisma.PostFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
+            args: Prisma.PfandFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PostFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.PfandFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>
           }
           findMany: {
-            args: Prisma.PostFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+            args: Prisma.PfandFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>[]
           }
           create: {
-            args: Prisma.PostCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.PfandCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>
           }
           createMany: {
-            args: Prisma.PostCreateManyArgs<ExtArgs>
+            args: Prisma.PfandCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PostCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+            args: Prisma.PfandCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>[]
           }
           delete: {
-            args: Prisma.PostDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.PfandDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>
           }
           update: {
-            args: Prisma.PostUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.PfandUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>
           }
           deleteMany: {
-            args: Prisma.PostDeleteManyArgs<ExtArgs>
+            args: Prisma.PfandDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PostUpdateManyArgs<ExtArgs>
+            args: Prisma.PfandUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PostUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+            args: Prisma.PfandUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>[]
           }
           upsert: {
-            args: Prisma.PostUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+            args: Prisma.PfandUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PfandPayload>
           }
           aggregate: {
-            args: Prisma.PostAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePost>
+            args: Prisma.PfandAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePfand>
           }
           groupBy: {
-            args: Prisma.PostGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PostGroupByOutputType>[]
+            args: Prisma.PfandGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PfandGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PostCountArgs<ExtArgs>
-            result: $Utils.Optional<PostCountAggregateOutputType> | number
+            args: Prisma.PfandCountArgs<ExtArgs>
+            result: $Utils.Optional<PfandCountAggregateOutputType> | number
           }
         }
       }
@@ -870,7 +888,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    post?: PostOmit
+    pfand?: PfandOmit
     drink?: DrinkOmit
   }
 
@@ -953,358 +971,350 @@ export namespace Prisma {
    */
 
   /**
-   * Model Post
+   * Model Pfand
    */
 
-  export type AggregatePost = {
-    _count: PostCountAggregateOutputType | null
-    _avg: PostAvgAggregateOutputType | null
-    _sum: PostSumAggregateOutputType | null
-    _min: PostMinAggregateOutputType | null
-    _max: PostMaxAggregateOutputType | null
+  export type AggregatePfand = {
+    _count: PfandCountAggregateOutputType | null
+    _avg: PfandAvgAggregateOutputType | null
+    _sum: PfandSumAggregateOutputType | null
+    _min: PfandMinAggregateOutputType | null
+    _max: PfandMaxAggregateOutputType | null
   }
 
-  export type PostAvgAggregateOutputType = {
+  export type PfandAvgAggregateOutputType = {
     id: number | null
+    quantity: number | null
   }
 
-  export type PostSumAggregateOutputType = {
+  export type PfandSumAggregateOutputType = {
     id: number | null
+    quantity: number | null
   }
 
-  export type PostMinAggregateOutputType = {
+  export type PfandMinAggregateOutputType = {
     id: number | null
-    name: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    quantity: number | null
+    pfandType: $Enums.PfandType | null
   }
 
-  export type PostMaxAggregateOutputType = {
+  export type PfandMaxAggregateOutputType = {
     id: number | null
-    name: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    quantity: number | null
+    pfandType: $Enums.PfandType | null
   }
 
-  export type PostCountAggregateOutputType = {
+  export type PfandCountAggregateOutputType = {
     id: number
-    name: number
-    createdAt: number
-    updatedAt: number
+    quantity: number
+    pfandType: number
     _all: number
   }
 
 
-  export type PostAvgAggregateInputType = {
+  export type PfandAvgAggregateInputType = {
     id?: true
+    quantity?: true
   }
 
-  export type PostSumAggregateInputType = {
+  export type PfandSumAggregateInputType = {
     id?: true
+    quantity?: true
   }
 
-  export type PostMinAggregateInputType = {
+  export type PfandMinAggregateInputType = {
     id?: true
-    name?: true
-    createdAt?: true
-    updatedAt?: true
+    quantity?: true
+    pfandType?: true
   }
 
-  export type PostMaxAggregateInputType = {
+  export type PfandMaxAggregateInputType = {
     id?: true
-    name?: true
-    createdAt?: true
-    updatedAt?: true
+    quantity?: true
+    pfandType?: true
   }
 
-  export type PostCountAggregateInputType = {
+  export type PfandCountAggregateInputType = {
     id?: true
-    name?: true
-    createdAt?: true
-    updatedAt?: true
+    quantity?: true
+    pfandType?: true
     _all?: true
   }
 
-  export type PostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Post to aggregate.
+     * Filter which Pfand to aggregate.
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of Pfands to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: PfandOrderByWithRelationInput | PfandOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: PfandWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` Pfands from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` Pfands.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Posts
+     * Count returned Pfands
     **/
-    _count?: true | PostCountAggregateInputType
+    _count?: true | PfandCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: PostAvgAggregateInputType
+    _avg?: PfandAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: PostSumAggregateInputType
+    _sum?: PfandSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PostMinAggregateInputType
+    _min?: PfandMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PostMaxAggregateInputType
+    _max?: PfandMaxAggregateInputType
   }
 
-  export type GetPostAggregateType<T extends PostAggregateArgs> = {
-        [P in keyof T & keyof AggregatePost]: P extends '_count' | 'count'
+  export type GetPfandAggregateType<T extends PfandAggregateArgs> = {
+        [P in keyof T & keyof AggregatePfand]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePost[P]>
-      : GetScalarType<T[P], AggregatePost[P]>
+        : GetScalarType<T[P], AggregatePfand[P]>
+      : GetScalarType<T[P], AggregatePfand[P]>
   }
 
 
 
 
-  export type PostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithAggregationInput | PostOrderByWithAggregationInput[]
-    by: PostScalarFieldEnum[] | PostScalarFieldEnum
-    having?: PostScalarWhereWithAggregatesInput
+  export type PfandGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PfandWhereInput
+    orderBy?: PfandOrderByWithAggregationInput | PfandOrderByWithAggregationInput[]
+    by: PfandScalarFieldEnum[] | PfandScalarFieldEnum
+    having?: PfandScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PostCountAggregateInputType | true
-    _avg?: PostAvgAggregateInputType
-    _sum?: PostSumAggregateInputType
-    _min?: PostMinAggregateInputType
-    _max?: PostMaxAggregateInputType
+    _count?: PfandCountAggregateInputType | true
+    _avg?: PfandAvgAggregateInputType
+    _sum?: PfandSumAggregateInputType
+    _min?: PfandMinAggregateInputType
+    _max?: PfandMaxAggregateInputType
   }
 
-  export type PostGroupByOutputType = {
+  export type PfandGroupByOutputType = {
     id: number
-    name: string
-    createdAt: Date
-    updatedAt: Date
-    _count: PostCountAggregateOutputType | null
-    _avg: PostAvgAggregateOutputType | null
-    _sum: PostSumAggregateOutputType | null
-    _min: PostMinAggregateOutputType | null
-    _max: PostMaxAggregateOutputType | null
+    quantity: number
+    pfandType: $Enums.PfandType
+    _count: PfandCountAggregateOutputType | null
+    _avg: PfandAvgAggregateOutputType | null
+    _sum: PfandSumAggregateOutputType | null
+    _min: PfandMinAggregateOutputType | null
+    _max: PfandMaxAggregateOutputType | null
   }
 
-  type GetPostGroupByPayload<T extends PostGroupByArgs> = Prisma.PrismaPromise<
+  type GetPfandGroupByPayload<T extends PfandGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PostGroupByOutputType, T['by']> &
+      PickEnumerable<PfandGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PostGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PfandGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PostGroupByOutputType[P]>
-            : GetScalarType<T[P], PostGroupByOutputType[P]>
+              : GetScalarType<T[P], PfandGroupByOutputType[P]>
+            : GetScalarType<T[P], PfandGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PfandSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["post"]>
+    quantity?: boolean
+    pfandType?: boolean
+  }, ExtArgs["result"]["pfand"]>
 
-  export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PfandSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["post"]>
+    quantity?: boolean
+    pfandType?: boolean
+  }, ExtArgs["result"]["pfand"]>
 
-  export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PfandSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["post"]>
+    quantity?: boolean
+    pfandType?: boolean
+  }, ExtArgs["result"]["pfand"]>
 
-  export type PostSelectScalar = {
+  export type PfandSelectScalar = {
     id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    quantity?: boolean
+    pfandType?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+  export type PfandOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "pfandType", ExtArgs["result"]["pfand"]>
 
-  export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Post"
+  export type $PfandPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Pfand"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["post"]>
+      quantity: number
+      pfandType: $Enums.PfandType
+    }, ExtArgs["result"]["pfand"]>
     composites: {}
   }
 
-  type PostGetPayload<S extends boolean | null | undefined | PostDefaultArgs> = $Result.GetResult<Prisma.$PostPayload, S>
+  type PfandGetPayload<S extends boolean | null | undefined | PfandDefaultArgs> = $Result.GetResult<Prisma.$PfandPayload, S>
 
-  type PostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PostCountAggregateInputType | true
+  type PfandCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PfandFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PfandCountAggregateInputType | true
     }
 
-  export interface PostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Post'], meta: { name: 'Post' } }
+  export interface PfandDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Pfand'], meta: { name: 'Pfand' } }
     /**
-     * Find zero or one Post that matches the filter.
-     * @param {PostFindUniqueArgs} args - Arguments to find a Post
+     * Find zero or one Pfand that matches the filter.
+     * @param {PfandFindUniqueArgs} args - Arguments to find a Pfand
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findUnique({
+     * // Get one Pfand
+     * const pfand = await prisma.pfand.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PostFindUniqueArgs>(args: SelectSubset<T, PostFindUniqueArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends PfandFindUniqueArgs>(args: SelectSubset<T, PfandFindUniqueArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Post that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Pfand that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PostFindUniqueOrThrowArgs} args - Arguments to find a Post
+     * @param {PfandFindUniqueOrThrowArgs} args - Arguments to find a Pfand
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findUniqueOrThrow({
+     * // Get one Pfand
+     * const pfand = await prisma.pfand.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PostFindUniqueOrThrowArgs>(args: SelectSubset<T, PostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends PfandFindUniqueOrThrowArgs>(args: SelectSubset<T, PfandFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Post that matches the filter.
+     * Find the first Pfand that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindFirstArgs} args - Arguments to find a Post
+     * @param {PfandFindFirstArgs} args - Arguments to find a Pfand
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findFirst({
+     * // Get one Pfand
+     * const pfand = await prisma.pfand.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PostFindFirstArgs>(args?: SelectSubset<T, PostFindFirstArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends PfandFindFirstArgs>(args?: SelectSubset<T, PfandFindFirstArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Post that matches the filter or
+     * Find the first Pfand that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindFirstOrThrowArgs} args - Arguments to find a Post
+     * @param {PfandFindFirstOrThrowArgs} args - Arguments to find a Pfand
      * @example
-     * // Get one Post
-     * const post = await prisma.post.findFirstOrThrow({
+     * // Get one Pfand
+     * const pfand = await prisma.pfand.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PostFindFirstOrThrowArgs>(args?: SelectSubset<T, PostFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends PfandFindFirstOrThrowArgs>(args?: SelectSubset<T, PfandFindFirstOrThrowArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Posts that matches the filter.
+     * Find zero or more Pfands that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {PfandFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Posts
-     * const posts = await prisma.post.findMany()
+     * // Get all Pfands
+     * const pfands = await prisma.pfand.findMany()
      * 
-     * // Get first 10 Posts
-     * const posts = await prisma.post.findMany({ take: 10 })
+     * // Get first 10 Pfands
+     * const pfands = await prisma.pfand.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const postWithIdOnly = await prisma.post.findMany({ select: { id: true } })
+     * const pfandWithIdOnly = await prisma.pfand.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PostFindManyArgs>(args?: SelectSubset<T, PostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends PfandFindManyArgs>(args?: SelectSubset<T, PfandFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Post.
-     * @param {PostCreateArgs} args - Arguments to create a Post.
+     * Create a Pfand.
+     * @param {PfandCreateArgs} args - Arguments to create a Pfand.
      * @example
-     * // Create one Post
-     * const Post = await prisma.post.create({
+     * // Create one Pfand
+     * const Pfand = await prisma.pfand.create({
      *   data: {
-     *     // ... data to create a Post
+     *     // ... data to create a Pfand
      *   }
      * })
      * 
      */
-    create<T extends PostCreateArgs>(args: SelectSubset<T, PostCreateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends PfandCreateArgs>(args: SelectSubset<T, PfandCreateArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Posts.
-     * @param {PostCreateManyArgs} args - Arguments to create many Posts.
+     * Create many Pfands.
+     * @param {PfandCreateManyArgs} args - Arguments to create many Pfands.
      * @example
-     * // Create many Posts
-     * const post = await prisma.post.createMany({
+     * // Create many Pfands
+     * const pfand = await prisma.pfand.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PostCreateManyArgs>(args?: SelectSubset<T, PostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends PfandCreateManyArgs>(args?: SelectSubset<T, PfandCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Posts and returns the data saved in the database.
-     * @param {PostCreateManyAndReturnArgs} args - Arguments to create many Posts.
+     * Create many Pfands and returns the data saved in the database.
+     * @param {PfandCreateManyAndReturnArgs} args - Arguments to create many Pfands.
      * @example
-     * // Create many Posts
-     * const post = await prisma.post.createManyAndReturn({
+     * // Create many Pfands
+     * const pfand = await prisma.pfand.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Posts and only return the `id`
-     * const postWithIdOnly = await prisma.post.createManyAndReturn({
+     * // Create many Pfands and only return the `id`
+     * const pfandWithIdOnly = await prisma.pfand.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -1314,28 +1324,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PostCreateManyAndReturnArgs>(args?: SelectSubset<T, PostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends PfandCreateManyAndReturnArgs>(args?: SelectSubset<T, PfandCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Post.
-     * @param {PostDeleteArgs} args - Arguments to delete one Post.
+     * Delete a Pfand.
+     * @param {PfandDeleteArgs} args - Arguments to delete one Pfand.
      * @example
-     * // Delete one Post
-     * const Post = await prisma.post.delete({
+     * // Delete one Pfand
+     * const Pfand = await prisma.pfand.delete({
      *   where: {
-     *     // ... filter to delete one Post
+     *     // ... filter to delete one Pfand
      *   }
      * })
      * 
      */
-    delete<T extends PostDeleteArgs>(args: SelectSubset<T, PostDeleteArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends PfandDeleteArgs>(args: SelectSubset<T, PfandDeleteArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Post.
-     * @param {PostUpdateArgs} args - Arguments to update one Post.
+     * Update one Pfand.
+     * @param {PfandUpdateArgs} args - Arguments to update one Pfand.
      * @example
-     * // Update one Post
-     * const post = await prisma.post.update({
+     * // Update one Pfand
+     * const pfand = await prisma.pfand.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1345,30 +1355,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PostUpdateArgs>(args: SelectSubset<T, PostUpdateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends PfandUpdateArgs>(args: SelectSubset<T, PfandUpdateArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Posts.
-     * @param {PostDeleteManyArgs} args - Arguments to filter Posts to delete.
+     * Delete zero or more Pfands.
+     * @param {PfandDeleteManyArgs} args - Arguments to filter Pfands to delete.
      * @example
-     * // Delete a few Posts
-     * const { count } = await prisma.post.deleteMany({
+     * // Delete a few Pfands
+     * const { count } = await prisma.pfand.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PostDeleteManyArgs>(args?: SelectSubset<T, PostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends PfandDeleteManyArgs>(args?: SelectSubset<T, PfandDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Posts.
+     * Update zero or more Pfands.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PfandUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Posts
-     * const post = await prisma.post.updateMany({
+     * // Update many Pfands
+     * const pfand = await prisma.pfand.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1378,14 +1388,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PostUpdateManyArgs>(args: SelectSubset<T, PostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends PfandUpdateManyArgs>(args: SelectSubset<T, PfandUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Posts and returns the data updated in the database.
-     * @param {PostUpdateManyAndReturnArgs} args - Arguments to update many Posts.
+     * Update zero or more Pfands and returns the data updated in the database.
+     * @param {PfandUpdateManyAndReturnArgs} args - Arguments to update many Pfands.
      * @example
-     * // Update many Posts
-     * const post = await prisma.post.updateManyAndReturn({
+     * // Update many Pfands
+     * const pfand = await prisma.pfand.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1394,8 +1404,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Posts and only return the `id`
-     * const postWithIdOnly = await prisma.post.updateManyAndReturn({
+     * // Update zero or more Pfands and only return the `id`
+     * const pfandWithIdOnly = await prisma.pfand.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -1408,56 +1418,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PostUpdateManyAndReturnArgs>(args: SelectSubset<T, PostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends PfandUpdateManyAndReturnArgs>(args: SelectSubset<T, PfandUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Post.
-     * @param {PostUpsertArgs} args - Arguments to update or create a Post.
+     * Create or update one Pfand.
+     * @param {PfandUpsertArgs} args - Arguments to update or create a Pfand.
      * @example
-     * // Update or create a Post
-     * const post = await prisma.post.upsert({
+     * // Update or create a Pfand
+     * const pfand = await prisma.pfand.upsert({
      *   create: {
-     *     // ... data to create a Post
+     *     // ... data to create a Pfand
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Post we want to update
+     *     // ... the filter for the Pfand we want to update
      *   }
      * })
      */
-    upsert<T extends PostUpsertArgs>(args: SelectSubset<T, PostUpsertArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends PfandUpsertArgs>(args: SelectSubset<T, PfandUpsertArgs<ExtArgs>>): Prisma__PfandClient<$Result.GetResult<Prisma.$PfandPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Posts.
+     * Count the number of Pfands.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostCountArgs} args - Arguments to filter Posts to count.
+     * @param {PfandCountArgs} args - Arguments to filter Pfands to count.
      * @example
-     * // Count the number of Posts
-     * const count = await prisma.post.count({
+     * // Count the number of Pfands
+     * const count = await prisma.pfand.count({
      *   where: {
-     *     // ... the filter for the Posts we want to count
+     *     // ... the filter for the Pfands we want to count
      *   }
      * })
     **/
-    count<T extends PostCountArgs>(
-      args?: Subset<T, PostCountArgs>,
+    count<T extends PfandCountArgs>(
+      args?: Subset<T, PfandCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PostCountAggregateOutputType>
+          : GetScalarType<T['select'], PfandCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Post.
+     * Allows you to perform aggregations operations on a Pfand.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PfandAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -1477,13 +1487,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PostAggregateArgs>(args: Subset<T, PostAggregateArgs>): Prisma.PrismaPromise<GetPostAggregateType<T>>
+    aggregate<T extends PfandAggregateArgs>(args: Subset<T, PfandAggregateArgs>): Prisma.PrismaPromise<GetPfandAggregateType<T>>
 
     /**
-     * Group by Post.
+     * Group by Pfand.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostGroupByArgs} args - Group by arguments.
+     * @param {PfandGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -1498,14 +1508,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PostGroupByArgs,
+      T extends PfandGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PostGroupByArgs['orderBy'] }
-        : { orderBy?: PostGroupByArgs['orderBy'] },
+        ? { orderBy: PfandGroupByArgs['orderBy'] }
+        : { orderBy?: PfandGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -1554,20 +1564,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PfandGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPfandGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Post model
+   * Fields of the Pfand model
    */
-  readonly fields: PostFieldRefs;
+  readonly fields: PfandFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Post.
+   * The delegate class that acts as a "Promise-like" for Pfand.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PfandClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1595,376 +1605,375 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Post model
+   * Fields of the Pfand model
    */
-  interface PostFieldRefs {
-    readonly id: FieldRef<"Post", 'Int'>
-    readonly name: FieldRef<"Post", 'String'>
-    readonly createdAt: FieldRef<"Post", 'DateTime'>
-    readonly updatedAt: FieldRef<"Post", 'DateTime'>
+  interface PfandFieldRefs {
+    readonly id: FieldRef<"Pfand", 'Int'>
+    readonly quantity: FieldRef<"Pfand", 'Int'>
+    readonly pfandType: FieldRef<"Pfand", 'PfandType'>
   }
     
 
   // Custom InputTypes
   /**
-   * Post findUnique
+   * Pfand findUnique
    */
-  export type PostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which Pfand to fetch.
      */
-    where: PostWhereUniqueInput
+    where: PfandWhereUniqueInput
   }
 
   /**
-   * Post findUniqueOrThrow
+   * Pfand findUniqueOrThrow
    */
-  export type PostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which Pfand to fetch.
      */
-    where: PostWhereUniqueInput
+    where: PfandWhereUniqueInput
   }
 
   /**
-   * Post findFirst
+   * Pfand findFirst
    */
-  export type PostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which Pfand to fetch.
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of Pfands to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: PfandOrderByWithRelationInput | PfandOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Posts.
+     * Sets the position for searching for Pfands.
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: PfandWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` Pfands from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` Pfands.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Posts.
+     * Filter by unique combinations of Pfands.
      */
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: PfandScalarFieldEnum | PfandScalarFieldEnum[]
   }
 
   /**
-   * Post findFirstOrThrow
+   * Pfand findFirstOrThrow
    */
-  export type PostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * Filter, which Post to fetch.
+     * Filter, which Pfand to fetch.
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of Pfands to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: PfandOrderByWithRelationInput | PfandOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Posts.
+     * Sets the position for searching for Pfands.
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: PfandWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` Pfands from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` Pfands.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Posts.
+     * Filter by unique combinations of Pfands.
      */
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: PfandScalarFieldEnum | PfandScalarFieldEnum[]
   }
 
   /**
-   * Post findMany
+   * Pfand findMany
    */
-  export type PostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * Filter, which Posts to fetch.
+     * Filter, which Pfands to fetch.
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Posts to fetch.
+     * Determine the order of Pfands to fetch.
      */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    orderBy?: PfandOrderByWithRelationInput | PfandOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Posts.
+     * Sets the position for listing Pfands.
      */
-    cursor?: PostWhereUniqueInput
+    cursor?: PfandWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Posts from the position of the cursor.
+     * Take `±n` Pfands from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Posts.
+     * Skip the first `n` Pfands.
      */
     skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: PfandScalarFieldEnum | PfandScalarFieldEnum[]
   }
 
   /**
-   * Post create
+   * Pfand create
    */
-  export type PostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * The data needed to create a Post.
+     * The data needed to create a Pfand.
      */
-    data: XOR<PostCreateInput, PostUncheckedCreateInput>
+    data: XOR<PfandCreateInput, PfandUncheckedCreateInput>
   }
 
   /**
-   * Post createMany
+   * Pfand createMany
    */
-  export type PostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Posts.
+     * The data used to create many Pfands.
      */
-    data: PostCreateManyInput | PostCreateManyInput[]
+    data: PfandCreateManyInput | PfandCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Post createManyAndReturn
+   * Pfand createManyAndReturn
    */
-  export type PostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelectCreateManyAndReturn<ExtArgs> | null
+    select?: PfandSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * The data used to create many Posts.
+     * The data used to create many Pfands.
      */
-    data: PostCreateManyInput | PostCreateManyInput[]
+    data: PfandCreateManyInput | PfandCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Post update
+   * Pfand update
    */
-  export type PostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * The data needed to update a Post.
+     * The data needed to update a Pfand.
      */
-    data: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+    data: XOR<PfandUpdateInput, PfandUncheckedUpdateInput>
     /**
-     * Choose, which Post to update.
+     * Choose, which Pfand to update.
      */
-    where: PostWhereUniqueInput
+    where: PfandWhereUniqueInput
   }
 
   /**
-   * Post updateMany
+   * Pfand updateMany
    */
-  export type PostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Posts.
+     * The data used to update Pfands.
      */
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
+    data: XOR<PfandUpdateManyMutationInput, PfandUncheckedUpdateManyInput>
     /**
-     * Filter which Posts to update
+     * Filter which Pfands to update
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
-     * Limit how many Posts to update.
+     * Limit how many Pfands to update.
      */
     limit?: number
   }
 
   /**
-   * Post updateManyAndReturn
+   * Pfand updateManyAndReturn
    */
-  export type PostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: PfandSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * The data used to update Posts.
+     * The data used to update Pfands.
      */
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
+    data: XOR<PfandUpdateManyMutationInput, PfandUncheckedUpdateManyInput>
     /**
-     * Filter which Posts to update
+     * Filter which Pfands to update
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
-     * Limit how many Posts to update.
+     * Limit how many Pfands to update.
      */
     limit?: number
   }
 
   /**
-   * Post upsert
+   * Pfand upsert
    */
-  export type PostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * The filter to search for the Post to update in case it exists.
+     * The filter to search for the Pfand to update in case it exists.
      */
-    where: PostWhereUniqueInput
+    where: PfandWhereUniqueInput
     /**
-     * In case the Post found by the `where` argument doesn't exist, create a new Post with this data.
+     * In case the Pfand found by the `where` argument doesn't exist, create a new Pfand with this data.
      */
-    create: XOR<PostCreateInput, PostUncheckedCreateInput>
+    create: XOR<PfandCreateInput, PfandUncheckedCreateInput>
     /**
-     * In case the Post was found with the provided `where` argument, update it with this data.
+     * In case the Pfand was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+    update: XOR<PfandUpdateInput, PfandUncheckedUpdateInput>
   }
 
   /**
-   * Post delete
+   * Pfand delete
    */
-  export type PostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
     /**
-     * Filter which Post to delete.
+     * Filter which Pfand to delete.
      */
-    where: PostWhereUniqueInput
+    where: PfandWhereUniqueInput
   }
 
   /**
-   * Post deleteMany
+   * Pfand deleteMany
    */
-  export type PostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Posts to delete
+     * Filter which Pfands to delete
      */
-    where?: PostWhereInput
+    where?: PfandWhereInput
     /**
-     * Limit how many Posts to delete.
+     * Limit how many Pfands to delete.
      */
     limit?: number
   }
 
   /**
-   * Post without action
+   * Pfand without action
    */
-  export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PfandDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the Pfand
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: PfandSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the Pfand
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: PfandOmit<ExtArgs> | null
   }
 
 
@@ -3045,14 +3054,13 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-  export const PostScalarFieldEnum: {
+  export const PfandScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    quantity: 'quantity',
+    pfandType: 'pfandType'
   };
 
-  export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+  export type PfandScalarFieldEnum = (typeof PfandScalarFieldEnum)[keyof typeof PfandScalarFieldEnum]
 
 
   export const DrinkScalarFieldEnum: {
@@ -3104,6 +3112,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PfandType'
+   */
+  export type EnumPfandTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PfandType'>
+    
+
+
+  /**
+   * Reference to a field of type 'PfandType[]'
+   */
+  export type ListEnumPfandTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PfandType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -3148,53 +3170,48 @@ export namespace Prisma {
    */
 
 
-  export type PostWhereInput = {
-    AND?: PostWhereInput | PostWhereInput[]
-    OR?: PostWhereInput[]
-    NOT?: PostWhereInput | PostWhereInput[]
-    id?: IntFilter<"Post"> | number
-    name?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    updatedAt?: DateTimeFilter<"Post"> | Date | string
+  export type PfandWhereInput = {
+    AND?: PfandWhereInput | PfandWhereInput[]
+    OR?: PfandWhereInput[]
+    NOT?: PfandWhereInput | PfandWhereInput[]
+    id?: IntFilter<"Pfand"> | number
+    quantity?: IntFilter<"Pfand"> | number
+    pfandType?: EnumPfandTypeFilter<"Pfand"> | $Enums.PfandType
   }
 
-  export type PostOrderByWithRelationInput = {
+  export type PfandOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    quantity?: SortOrder
+    pfandType?: SortOrder
   }
 
-  export type PostWhereUniqueInput = Prisma.AtLeast<{
+  export type PfandWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: PostWhereInput | PostWhereInput[]
-    OR?: PostWhereInput[]
-    NOT?: PostWhereInput | PostWhereInput[]
-    name?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    AND?: PfandWhereInput | PfandWhereInput[]
+    OR?: PfandWhereInput[]
+    NOT?: PfandWhereInput | PfandWhereInput[]
+    quantity?: IntFilter<"Pfand"> | number
+    pfandType?: EnumPfandTypeFilter<"Pfand"> | $Enums.PfandType
   }, "id">
 
-  export type PostOrderByWithAggregationInput = {
+  export type PfandOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: PostCountOrderByAggregateInput
-    _avg?: PostAvgOrderByAggregateInput
-    _max?: PostMaxOrderByAggregateInput
-    _min?: PostMinOrderByAggregateInput
-    _sum?: PostSumOrderByAggregateInput
+    quantity?: SortOrder
+    pfandType?: SortOrder
+    _count?: PfandCountOrderByAggregateInput
+    _avg?: PfandAvgOrderByAggregateInput
+    _max?: PfandMaxOrderByAggregateInput
+    _min?: PfandMinOrderByAggregateInput
+    _sum?: PfandSumOrderByAggregateInput
   }
 
-  export type PostScalarWhereWithAggregatesInput = {
-    AND?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
-    OR?: PostScalarWhereWithAggregatesInput[]
-    NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Post"> | number
-    name?: StringWithAggregatesFilter<"Post"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  export type PfandScalarWhereWithAggregatesInput = {
+    AND?: PfandScalarWhereWithAggregatesInput | PfandScalarWhereWithAggregatesInput[]
+    OR?: PfandScalarWhereWithAggregatesInput[]
+    NOT?: PfandScalarWhereWithAggregatesInput | PfandScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Pfand"> | number
+    quantity?: IntWithAggregatesFilter<"Pfand"> | number
+    pfandType?: EnumPfandTypeWithAggregatesFilter<"Pfand"> | $Enums.PfandType
   }
 
   export type DrinkWhereInput = {
@@ -3261,50 +3278,43 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
   }
 
-  export type PostCreateInput = {
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type PfandCreateInput = {
+    quantity: number
+    pfandType: $Enums.PfandType
   }
 
-  export type PostUncheckedCreateInput = {
+  export type PfandUncheckedCreateInput = {
     id?: number
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    quantity: number
+    pfandType: $Enums.PfandType
   }
 
-  export type PostUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type PfandUpdateInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    pfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
   }
 
-  export type PostUncheckedUpdateInput = {
+  export type PfandUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    pfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
   }
 
-  export type PostCreateManyInput = {
+  export type PfandCreateManyInput = {
     id?: number
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    quantity: number
+    pfandType: $Enums.PfandType
   }
 
-  export type PostUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type PfandUpdateManyMutationInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    pfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
   }
 
-  export type PostUncheckedUpdateManyInput = {
+  export type PfandUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    pfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
   }
 
   export type DrinkCreateInput = {
@@ -3385,6 +3395,67 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type EnumPfandTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PfandType | EnumPfandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPfandTypeFilter<$PrismaModel> | $Enums.PfandType
+  }
+
+  export type PfandCountOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+    pfandType?: SortOrder
+  }
+
+  export type PfandAvgOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type PfandMaxOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+    pfandType?: SortOrder
+  }
+
+  export type PfandMinOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+    pfandType?: SortOrder
+  }
+
+  export type PfandSumOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumPfandTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PfandType | EnumPfandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPfandTypeWithAggregatesFilter<$PrismaModel> | $Enums.PfandType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPfandTypeFilter<$PrismaModel>
+    _max?: NestedEnumPfandTypeFilter<$PrismaModel>
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3409,83 +3480,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type PostCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type PostAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type PostMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type PostMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type PostSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type DrinkCountOrderByAggregateInput = {
@@ -3530,12 +3524,36 @@ export namespace Prisma {
     openedQuantity?: SortOrder
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -3544,6 +3562,18 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumPfandTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PfandType
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3557,29 +3587,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type NestedEnumPfandTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PfandType | EnumPfandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPfandTypeFilter<$PrismaModel> | $Enums.PfandType
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -3607,6 +3619,41 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumPfandTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PfandType | EnumPfandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PfandType[] | ListEnumPfandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPfandTypeWithAggregatesFilter<$PrismaModel> | $Enums.PfandType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPfandTypeFilter<$PrismaModel>
+    _max?: NestedEnumPfandTypeFilter<$PrismaModel>
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {

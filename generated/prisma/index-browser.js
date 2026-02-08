@@ -121,11 +121,10 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.PfandScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  quantity: 'quantity',
+  pfandType: 'pfandType'
 };
 
 exports.Prisma.DrinkScalarFieldEnum = {
@@ -147,10 +146,14 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.PfandType = exports.$Enums.PfandType = {
+  EINWEG: 'EINWEG',
+  MEHRWEG: 'MEHRWEG',
+  GLAS: 'GLAS'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
+  Pfand: 'Pfand',
   Drink: 'Drink'
 };
 
