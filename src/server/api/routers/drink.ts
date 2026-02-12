@@ -352,6 +352,30 @@ export const drinkRouter = createTRPCRouter({
             return crate;
         }),
 
+    // Update a crate
+    updateCrate: publicProcedure
+        .input(
+            z.object({
+                id: z.number(),
+                barcode: z.string().min(1),
+                name: z.string().min(1),
+                drinkId: z.number(),
+                defaultPfandType: z.enum(["EINWEG", "MEHRWEG", "GLAS"]),
+            })
+        )
+        .mutation(async ({ctx, input}) => {
+            return ctx.db.crate.update({
+                where: {id: input.id},
+                data: {
+                    barcode: input.barcode,
+                    name: input.name,
+                    drinkId: input.drinkId,
+                    defaultPfandType: input.defaultPfandType,
+                },
+                include: {drink: true},
+            });
+        }),
+
     // Delete a crate
     deleteCrate: publicProcedure
         .input(z.object({id: z.number()}))

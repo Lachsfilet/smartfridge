@@ -1,4 +1,4 @@
-import { PfandType } from '@/models/enums/pfand-type.enum'
+import type { PfandType } from '@/models/enums/pfand-type.enum'
 
 export interface Pfand {
     id: number
