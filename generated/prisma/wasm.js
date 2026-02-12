@@ -109,6 +109,16 @@ exports.Prisma.DrinkScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CrateScalarFieldEnum = {
+  id: 'id',
+  barcode: 'barcode',
+  name: 'name',
+  drinkId: 'drinkId',
+  defaultPfandType: 'defaultPfandType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -126,7 +136,8 @@ exports.PfandType = exports.$Enums.PfandType = {
 
 exports.Prisma.ModelName = {
   Pfand: 'Pfand',
-  Drink: 'Drink'
+  Drink: 'Drink',
+  Crate: 'Crate'
 };
 /**
  * Create the Client
@@ -139,7 +150,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/lachsfilet/Workspace/smartfridge/generated/prisma",
+      "value": "/home/runner/work/smartfridge/smartfridge/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -153,12 +164,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/lachsfilet/Workspace/smartfridge/prisma/schema.prisma",
+    "sourceFilePath": "/home/runner/work/smartfridge/smartfridge/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.19.1",
@@ -167,6 +177,8 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
+  "ciName": "GitHub Actions",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -175,13 +187,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Pfand {\n  id        Int       @id @default(autoincrement())\n  quantity  Int\n  pfandType PfandType\n\n  @@index([quantity])\n}\n\nmodel Drink {\n  id             Int      @id @default(autoincrement())\n  barcode        String   @unique\n  name           String\n  quantity       Int      @default(0)\n  openedQuantity Int      @default(0)\n  createdAt      DateTime @default(now())\n  updatedAt      DateTime @updatedAt\n\n  @@index([barcode])\n  @@index([openedQuantity])\n}\n\nenum PfandType {\n  EINWEG\n  MEHRWEG\n  GLAS\n}\n",
-  "inlineSchemaHash": "b159c335ba76c94994638e58fee455efbb08ae2a4dc3d0af6eeb18a63400b90f",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Pfand {\n  id        Int       @id @default(autoincrement())\n  quantity  Int\n  pfandType PfandType\n\n  @@index([quantity])\n}\n\nmodel Drink {\n  id             Int      @id @default(autoincrement())\n  barcode        String   @unique\n  name           String\n  quantity       Int      @default(0)\n  openedQuantity Int      @default(0)\n  createdAt      DateTime @default(now())\n  updatedAt      DateTime @updatedAt\n  crates         Crate[]\n\n  @@index([barcode])\n  @@index([openedQuantity])\n}\n\nmodel Crate {\n  id               Int       @id @default(autoincrement())\n  barcode          String    @unique\n  name             String\n  drinkId          Int\n  drink            Drink     @relation(fields: [drinkId], references: [id], onDelete: Cascade)\n  defaultPfandType PfandType\n  createdAt        DateTime  @default(now())\n  updatedAt        DateTime  @updatedAt\n\n  @@index([barcode])\n  @@index([drinkId])\n}\n\nenum PfandType {\n  EINWEG\n  MEHRWEG\n  GLAS\n}\n",
+  "inlineSchemaHash": "f7b863e731eb95940c93312e37c8b1f69dd132e7dd7654f8ce95e4fe48d49a07",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Pfand\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"pfandType\",\"kind\":\"enum\",\"type\":\"PfandType\"}],\"dbName\":null},\"Drink\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"barcode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"openedQuantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Pfand\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"pfandType\",\"kind\":\"enum\",\"type\":\"PfandType\"}],\"dbName\":null},\"Drink\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"barcode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"openedQuantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"crates\",\"kind\":\"object\",\"type\":\"Crate\",\"relationName\":\"CrateToDrink\"}],\"dbName\":null},\"Crate\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"barcode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"drinkId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"drink\",\"kind\":\"object\",\"type\":\"Drink\",\"relationName\":\"CrateToDrink\"},{\"name\":\"defaultPfandType\",\"kind\":\"enum\",\"type\":\"PfandType\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

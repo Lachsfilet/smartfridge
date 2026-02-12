@@ -27,9 +27,24 @@ model Drink {
   openedQuantity Int      @default(0)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  crates         Crate[]
 
   @@index([barcode])
   @@index([openedQuantity])
+}
+
+model Crate {
+  id               Int       @id @default(autoincrement())
+  barcode          String    @unique
+  name             String
+  drinkId          Int
+  drink            Drink     @relation(fields: [drinkId], references: [id], onDelete: Cascade)
+  defaultPfandType PfandType
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([barcode])
+  @@index([drinkId])
 }
 
 enum PfandType {
