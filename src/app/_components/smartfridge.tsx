@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, useEffect, useCallback} from "react";
+import {useState, useEffect, useCallback, useRef} from "react";
 import {api} from "@/trpc/react";
 import {BarcodeScannerModal} from "./barcode-scanner-modal";
 import {DrinkCard} from "./drink-card";
@@ -67,6 +67,50 @@ export function SmartFridge() {
         const intervalId = setInterval(refreshDrinks, 60000); // 60000ms = 1 minute
         return () => clearInterval(intervalId);
     }, [refreshDrinks]);
+
+    // Invisible barcode scanner keyboard input handler
+    // Real barcode scanners type characters rapidly and press Enter
+    const barcodeBufferRef = useRef<string>("");
+    const barcodeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
+                return;
+            }
+
+            if (e.key === "Enter") {
+                const barcode = barcodeBufferRef.current.trim();
+                if (barcode.length > 0) {
+                    e.preventDefault();
+                    barcodeBufferRef.current = "";
+                    if (barcodeTimeoutRef.current) {
+                        clearTimeout(barcodeTimeoutRef.current);
+                        barcodeTimeoutRef.current = null;
+                    }
+                    void handleScan(barcode);
+                }
+            } else if (e.key.length === 1) {
+                barcodeBufferRef.current += e.key;
+                if (barcodeTimeoutRef.current) {
+                    clearTimeout(barcodeTimeoutRef.current);
+                }
+                barcodeTimeoutRef.current = setTimeout(() => {
+                    barcodeBufferRef.current = "";
+                    barcodeTimeoutRef.current = null;
+                }, 500);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            if (barcodeTimeoutRef.current) {
+                clearTimeout(barcodeTimeoutRef.current);
+            }
+        };
+    }, [drinks]);
 
     const openedDrinks = drinks?.filter((d) => d.openedQuantity > 0 && d.quantity > 0) ?? [];
     const closedDrinks = drinks?.filter((d) => d.openedQuantity === 0 && d.quantity > 0) ?? [];
