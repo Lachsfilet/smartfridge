@@ -22,6 +22,14 @@ export function CreateDrinkDialog({
   const [quantity, setQuantity] = useState(1);
   const [isOpened, setIsOpened] = useState(false);
 
+  const { data: drinks } = api.drink.getAll.useQuery();
+  const { data: crates } = api.drink.getAllCrates.useQuery();
+
+  // Only show "create as crate" button if there are drinks not yet assigned to a crate
+  const hasAvailableDrinksForCrate = drinks?.some(
+    (drink) => !crates?.some((crate) => crate.drinkId === drink.id)
+  ) ?? false;
+
   const createMutation = api.drink.create.useMutation({
     onSuccess: () => {
       setName("");
@@ -66,7 +74,7 @@ export function CreateDrinkDialog({
             wurde nicht in der Datenbank gefunden.
           </p>
 
-          {onCreateCrate && (
+          {onCreateCrate && hasAvailableDrinksForCrate && (
             <button
               type="button"
               onClick={() => {

@@ -21,6 +21,12 @@ export function CreateCrateDialog({
     const [defaultPfandType, setDefaultPfandType] = useState<"EINWEG" | "MEHRWEG" | "GLAS">("MEHRWEG");
 
     const {data: drinks} = api.drink.getAll.useQuery();
+    const {data: crates} = api.drink.getAllCrates.useQuery();
+
+    // Filter out drinks already assigned to a crate
+    const availableDrinks = drinks?.filter(
+        (drink) => !crates?.some((crate) => crate.drinkId === drink.id)
+    ) ?? [];
 
     const createCrateMutation = api.drink.createCrate.useMutation({
         onSuccess: () => {
@@ -87,7 +93,7 @@ export function CreateCrateDialog({
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Zugehöriges Getränk *
                             </label>
-                            {drinks && drinks.length > 0 ? (
+                            {availableDrinks.length > 0 ? (
                                 <select
                                     value={selectedDrinkId ?? ""}
                                     onChange={(e) =>
@@ -99,7 +105,7 @@ export function CreateCrateDialog({
                                     required
                                 >
                                     <option value="">Getränk auswählen...</option>
-                                    {drinks.map((drink) => (
+                                    {availableDrinks.map((drink) => (
                                         <option key={drink.id} value={drink.id}>
                                             {drink.name} ({drink.quantity} verfügbar)
                                         </option>

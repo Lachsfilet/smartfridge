@@ -33,6 +33,12 @@ export function CrateDialog({
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const { data: drinks } = api.drink.getAll.useQuery();
+    const { data: allCrates } = api.drink.getAllCrates.useQuery();
+
+    // Filter drinks: show the current crate's drink + any drinks not assigned to other crates
+    const availableDrinks = drinks?.filter(
+        (drink) => drink.id === crate.drinkId || !allCrates?.some((c) => c.drinkId === drink.id)
+    ) ?? [];
 
     const utils = api.useUtils();
 
@@ -145,7 +151,7 @@ export function CrateDialog({
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Zugehöriges Getränk *
                             </label>
-                            {drinks && drinks.length > 0 ? (
+                            {availableDrinks.length > 0 ? (
                                 <select
                                     value={localDrinkId}
                                     onChange={(e) =>
@@ -154,7 +160,7 @@ export function CrateDialog({
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     required
                                 >
-                                    {drinks.map((drink) => (
+                                    {availableDrinks.map((drink) => (
                                         <option key={drink.id} value={drink.id}>
                                             {drink.name}
                                         </option>
