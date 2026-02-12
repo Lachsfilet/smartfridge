@@ -39,6 +39,8 @@ export function CrateDialog({
     const updateCrateMutation = api.drink.updateCrate.useMutation({
         onSuccess: () => {
             void utils.drink.getAllCrates.invalidate();
+            void utils.drink.getAll.invalidate();
+            void utils.drink.getPfand.invalidate();
             onSuccess();
             onClose();
         },
@@ -47,6 +49,8 @@ export function CrateDialog({
     const deleteCrateMutation = api.drink.deleteCrate.useMutation({
         onSuccess: () => {
             void utils.drink.getAllCrates.invalidate();
+            void utils.drink.getAll.invalidate();
+            void utils.drink.getPfand.invalidate();
             onClose();
         },
         onError: (error) => {

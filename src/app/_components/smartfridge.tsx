@@ -40,45 +40,52 @@ export function SmartFridge() {
     const [scannedBarcode, setScannedBarcode] = useState<string>("");
 
     const { data: drinks, refetch } = api.drink.getAll.useQuery();
+    const { data: pfandData, refetch: refetchPfand } =
+        api.drink.getPfand.useQuery();
+    const { data: crates, refetch: refetchCrates } =
+        api.drink.getAllCrates.useQuery();
+
+    // Refetch all data to keep everything in sync across devices
+    const refreshAll = useCallback(() => {
+        void refetch();
+        void refetchPfand();
+        void refetchCrates();
+    }, [refetch, refetchPfand, refetchCrates]);
+
     const updateQuantityMutation = api.drink.updateQuantity.useMutation({
         onSuccess: () => {
-            void refetch();
+            refreshAll();
         },
     });
 
     const updateBaseDataMutation = api.drink.updateBaseData.useMutation({
         onSuccess: () => {
-            void refetch();
+            refreshAll();
         },
     });
 
     const updatePfandQuantityMutation = api.drink.updatePfand.useMutation({
         onSuccess: () => {
-            void refetchPfand();
+            refreshAll();
         },
     });
 
     const updateOpenedQuantityMutation =
         api.drink.updateOpenedQuantity.useMutation({
             onSuccess: () => {
-                void refetch();
+                refreshAll();
             },
         });
-    const { data: pfandData, refetch: refetchPfand } =
-        api.drink.getPfand.useQuery();
-    const { data: crates, refetch: refetchCrates } =
-        api.drink.getAllCrates.useQuery();
 
     const addPfandMutation = api.drink.addPfand.useMutation({
         onSuccess: () => {
-            void refetchPfand();
+            refreshAll();
         },
     });
 
     const scanCrateMutation = api.drink.scanCrate.useMutation({
         onSuccess: (crate) => {
-            void refetch();
-            void refetchCrates();
+            refreshAll();
             // Auto-add pfand based on the crate's default pfand type (no dialog)
             if (pfandData) {
                 let pfandId: number | null = null;
@@ -113,17 +120,11 @@ export function SmartFridge() {
             ? [pfandData?.pfand.glas]
             : ([] as Pfand[]);
 
-    // Auto-refresh drinks overview every minute
-    const refreshDrinks = useCallback(() => {
-        void refetch();
-        void refetchPfand();
-        void refetchCrates();
-    }, [refetch, refetchPfand, refetchCrates]);
-
+    // Auto-refresh all data every minute to keep in sync across devices
     useEffect(() => {
-        const intervalId = setInterval(refreshDrinks, 60000); // 60000ms = 1 minute
+        const intervalId = setInterval(refreshAll, 60000); // 60000ms = 1 minute
         return () => clearInterval(intervalId);
-    }, [refreshDrinks]);
+    }, [refreshAll]);
 
     // Invisible barcode scanner keyboard input handler
     // Real barcode scanners type characters rapidly and press Enter
@@ -258,13 +259,13 @@ export function SmartFridge() {
     const handleCreateSuccess = () => {
         setIsCreateDialogOpen(false);
         setScannedBarcode("");
-        void refetch();
+        refreshAll();
     };
 
     const handleCreateCrateSuccess = () => {
         setIsCreateCrateDialogOpen(false);
         setScannedBarcode("");
-        void refetchCrates();
+        refreshAll();
     };
 
     return (
@@ -588,8 +589,7 @@ export function SmartFridge() {
                     isOpen={!!selectedCrate}
                     onClose={() => setSelectedCrate(null)}
                     onSuccess={() => {
-                        void refetchCrates();
-                        void refetch();
+                        refreshAll();
                     }}
                 />
             )}
