@@ -70,7 +70,6 @@ export function CreateDrinkDialog({
             <button
               type="button"
               onClick={() => {
-                onClose();
                 onCreateCrate();
               }}
               className="w-full mb-4 bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition-colors font-medium text-sm flex items-center justify-center gap-2"
