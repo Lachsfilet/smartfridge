@@ -93,7 +93,7 @@ export function SmartFridge() {
                         pfandId = pfandData.pfand.glas.id;
                         break;
                 }
-                if (pfandId && pfandId !== 0) {
+                if (pfandId !== null) {
                     addPfandMutation.mutate({ id: pfandId });
                 }
             }

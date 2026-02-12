@@ -29,7 +29,7 @@ export function CrateDialog({
     const [localName, setLocalName] = useState(crate.name);
     const [localBarcode, setLocalBarcode] = useState(crate.barcode);
     const [localDrinkId, setLocalDrinkId] = useState(crate.drinkId);
-    const [localPfandType, setLocalPfandType] = useState(crate.defaultPfandType);
+    const [localPfandType, setLocalPfandType] = useState<"EINWEG" | "MEHRWEG" | "GLAS">(crate.defaultPfandType as "EINWEG" | "MEHRWEG" | "GLAS");
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const { data: drinks } = api.drink.getAll.useQuery();
@@ -59,7 +59,7 @@ export function CrateDialog({
         setLocalName(crate.name);
         setLocalBarcode(crate.barcode);
         setLocalDrinkId(crate.drinkId);
-        setLocalPfandType(crate.defaultPfandType);
+        setLocalPfandType(crate.defaultPfandType as "EINWEG" | "MEHRWEG" | "GLAS");
     }, [crate.name, crate.barcode, crate.drinkId, crate.defaultPfandType]);
 
     if (!isOpen) return null;
@@ -72,7 +72,7 @@ export function CrateDialog({
             barcode: localBarcode.trim(),
             name: localName.trim(),
             drinkId: localDrinkId,
-            defaultPfandType: localPfandType as "EINWEG" | "MEHRWEG" | "GLAS",
+            defaultPfandType: localPfandType,
         });
     };
 
@@ -84,7 +84,7 @@ export function CrateDialog({
         setLocalName(crate.name);
         setLocalBarcode(crate.barcode);
         setLocalDrinkId(crate.drinkId);
-        setLocalPfandType(crate.defaultPfandType);
+        setLocalPfandType(crate.defaultPfandType as "EINWEG" | "MEHRWEG" | "GLAS");
         setShowDeleteConfirm(false);
         onClose();
     };

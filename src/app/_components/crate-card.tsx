@@ -36,6 +36,9 @@ export function CrateCard({ crate, onClick }: CrateCardProps) {
             pfandLabel = PfandType.GLAS;
             pfandValue = 0.08;
             break;
+        default:
+            pfandLabel = crate.defaultPfandType;
+            break;
     }
 
     const totalPfandValue = closedQuantity * pfandValue;

@@ -364,14 +364,6 @@ export const drinkRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ctx, input}) => {
-            const crate = await ctx.db.crate.findUnique({
-                where: {id: input.id},
-            });
-
-            if (!crate) {
-                throw new Error("Crate not found");
-            }
-
             return ctx.db.crate.update({
                 where: {id: input.id},
                 data: {
