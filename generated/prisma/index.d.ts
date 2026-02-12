@@ -23,6 +23,11 @@ export type Pfand = $Result.DefaultSelection<Prisma.$PfandPayload>
  * 
  */
 export type Drink = $Result.DefaultSelection<Prisma.$DrinkPayload>
+/**
+ * Model Crate
+ * 
+ */
+export type Crate = $Result.DefaultSelection<Prisma.$CratePayload>
 
 /**
  * Enums
@@ -179,6 +184,16 @@ export class PrismaClient<
     * ```
     */
   get drink(): Prisma.DrinkDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.crate`: Exposes CRUD operations for the **Crate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Crates
+    * const crates = await prisma.crate.findMany()
+    * ```
+    */
+  get crate(): Prisma.CrateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -621,7 +636,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Pfand: 'Pfand',
-    Drink: 'Drink'
+    Drink: 'Drink',
+    Crate: 'Crate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -640,7 +656,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "pfand" | "drink"
+      modelProps: "pfand" | "drink" | "crate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -792,6 +808,80 @@ export namespace Prisma {
           }
         }
       }
+      Crate: {
+        payload: Prisma.$CratePayload<ExtArgs>
+        fields: Prisma.CrateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CrateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CrateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>
+          }
+          findFirst: {
+            args: Prisma.CrateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CrateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>
+          }
+          findMany: {
+            args: Prisma.CrateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>[]
+          }
+          create: {
+            args: Prisma.CrateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>
+          }
+          createMany: {
+            args: Prisma.CrateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CrateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>[]
+          }
+          delete: {
+            args: Prisma.CrateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>
+          }
+          update: {
+            args: Prisma.CrateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>
+          }
+          deleteMany: {
+            args: Prisma.CrateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CrateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CrateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>[]
+          }
+          upsert: {
+            args: Prisma.CrateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CratePayload>
+          }
+          aggregate: {
+            args: Prisma.CrateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCrate>
+          }
+          groupBy: {
+            args: Prisma.CrateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CrateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CrateCountArgs<ExtArgs>
+            result: $Utils.Optional<CrateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -890,6 +980,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     pfand?: PfandOmit
     drink?: DrinkOmit
+    crate?: CrateOmit
   }
 
   /* Types for Logging */
@@ -964,6 +1055,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type DrinkCountOutputType
+   */
+
+  export type DrinkCountOutputType = {
+    crates: number
+  }
+
+  export type DrinkCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    crates?: boolean | DrinkCountOutputTypeCountCratesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DrinkCountOutputType without action
+   */
+  export type DrinkCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrinkCountOutputType
+     */
+    select?: DrinkCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DrinkCountOutputType without action
+   */
+  export type DrinkCountOutputTypeCountCratesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrateWhereInput
+  }
 
 
   /**
@@ -2199,6 +2320,8 @@ export namespace Prisma {
     openedQuantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    crates?: boolean | Drink$cratesArgs<ExtArgs>
+    _count?: boolean | DrinkCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["drink"]>
 
   export type DrinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2232,10 +2355,18 @@ export namespace Prisma {
   }
 
   export type DrinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "name" | "quantity" | "openedQuantity" | "createdAt" | "updatedAt", ExtArgs["result"]["drink"]>
+  export type DrinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    crates?: boolean | Drink$cratesArgs<ExtArgs>
+    _count?: boolean | DrinkCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DrinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DrinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $DrinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Drink"
-    objects: {}
+    objects: {
+      crates: Prisma.$CratePayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       barcode: string
@@ -2638,6 +2769,7 @@ export namespace Prisma {
    */
   export interface Prisma__DrinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    crates<T extends Drink$cratesArgs<ExtArgs> = {}>(args?: Subset<T, Drink$cratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2691,6 +2823,10 @@ export namespace Prisma {
      */
     omit?: DrinkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+    /**
      * Filter, which Drink to fetch.
      */
     where: DrinkWhereUniqueInput
@@ -2709,6 +2845,10 @@ export namespace Prisma {
      */
     omit?: DrinkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+    /**
      * Filter, which Drink to fetch.
      */
     where: DrinkWhereUniqueInput
@@ -2726,6 +2866,10 @@ export namespace Prisma {
      * Omit specific fields from the Drink
      */
     omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
     /**
      * Filter, which Drink to fetch.
      */
@@ -2775,6 +2919,10 @@ export namespace Prisma {
      */
     omit?: DrinkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+    /**
      * Filter, which Drink to fetch.
      */
     where?: DrinkWhereInput
@@ -2823,6 +2971,10 @@ export namespace Prisma {
      */
     omit?: DrinkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+    /**
      * Filter, which Drinks to fetch.
      */
     where?: DrinkWhereInput
@@ -2865,6 +3017,10 @@ export namespace Prisma {
      * Omit specific fields from the Drink
      */
     omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
     /**
      * The data needed to create a Drink.
      */
@@ -2913,6 +3069,10 @@ export namespace Prisma {
      * Omit specific fields from the Drink
      */
     omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
     /**
      * The data needed to update a Drink.
      */
@@ -2980,6 +3140,10 @@ export namespace Prisma {
      */
     omit?: DrinkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+    /**
      * The filter to search for the Drink to update in case it exists.
      */
     where: DrinkWhereUniqueInput
@@ -3006,6 +3170,10 @@ export namespace Prisma {
      */
     omit?: DrinkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+    /**
      * Filter which Drink to delete.
      */
     where: DrinkWhereUniqueInput
@@ -3026,6 +3194,30 @@ export namespace Prisma {
   }
 
   /**
+   * Drink.crates
+   */
+  export type Drink$cratesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    where?: CrateWhereInput
+    orderBy?: CrateOrderByWithRelationInput | CrateOrderByWithRelationInput[]
+    cursor?: CrateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrateScalarFieldEnum | CrateScalarFieldEnum[]
+  }
+
+  /**
    * Drink without action
    */
   export type DrinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3037,6 +3229,1132 @@ export namespace Prisma {
      * Omit specific fields from the Drink
      */
     omit?: DrinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrinkInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Crate
+   */
+
+  export type AggregateCrate = {
+    _count: CrateCountAggregateOutputType | null
+    _avg: CrateAvgAggregateOutputType | null
+    _sum: CrateSumAggregateOutputType | null
+    _min: CrateMinAggregateOutputType | null
+    _max: CrateMaxAggregateOutputType | null
+  }
+
+  export type CrateAvgAggregateOutputType = {
+    id: number | null
+    drinkId: number | null
+  }
+
+  export type CrateSumAggregateOutputType = {
+    id: number | null
+    drinkId: number | null
+  }
+
+  export type CrateMinAggregateOutputType = {
+    id: number | null
+    barcode: string | null
+    name: string | null
+    drinkId: number | null
+    defaultPfandType: $Enums.PfandType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CrateMaxAggregateOutputType = {
+    id: number | null
+    barcode: string | null
+    name: string | null
+    drinkId: number | null
+    defaultPfandType: $Enums.PfandType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CrateCountAggregateOutputType = {
+    id: number
+    barcode: number
+    name: number
+    drinkId: number
+    defaultPfandType: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CrateAvgAggregateInputType = {
+    id?: true
+    drinkId?: true
+  }
+
+  export type CrateSumAggregateInputType = {
+    id?: true
+    drinkId?: true
+  }
+
+  export type CrateMinAggregateInputType = {
+    id?: true
+    barcode?: true
+    name?: true
+    drinkId?: true
+    defaultPfandType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CrateMaxAggregateInputType = {
+    id?: true
+    barcode?: true
+    name?: true
+    drinkId?: true
+    defaultPfandType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CrateCountAggregateInputType = {
+    id?: true
+    barcode?: true
+    name?: true
+    drinkId?: true
+    defaultPfandType?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CrateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Crate to aggregate.
+     */
+    where?: CrateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Crates to fetch.
+     */
+    orderBy?: CrateOrderByWithRelationInput | CrateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CrateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Crates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Crates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Crates
+    **/
+    _count?: true | CrateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CrateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CrateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CrateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CrateMaxAggregateInputType
+  }
+
+  export type GetCrateAggregateType<T extends CrateAggregateArgs> = {
+        [P in keyof T & keyof AggregateCrate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCrate[P]>
+      : GetScalarType<T[P], AggregateCrate[P]>
+  }
+
+
+
+
+  export type CrateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrateWhereInput
+    orderBy?: CrateOrderByWithAggregationInput | CrateOrderByWithAggregationInput[]
+    by: CrateScalarFieldEnum[] | CrateScalarFieldEnum
+    having?: CrateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CrateCountAggregateInputType | true
+    _avg?: CrateAvgAggregateInputType
+    _sum?: CrateSumAggregateInputType
+    _min?: CrateMinAggregateInputType
+    _max?: CrateMaxAggregateInputType
+  }
+
+  export type CrateGroupByOutputType = {
+    id: number
+    barcode: string
+    name: string
+    drinkId: number
+    defaultPfandType: $Enums.PfandType
+    createdAt: Date
+    updatedAt: Date
+    _count: CrateCountAggregateOutputType | null
+    _avg: CrateAvgAggregateOutputType | null
+    _sum: CrateSumAggregateOutputType | null
+    _min: CrateMinAggregateOutputType | null
+    _max: CrateMaxAggregateOutputType | null
+  }
+
+  type GetCrateGroupByPayload<T extends CrateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CrateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CrateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CrateGroupByOutputType[P]>
+            : GetScalarType<T[P], CrateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CrateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    drinkId?: boolean
+    defaultPfandType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    drink?: boolean | DrinkDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crate"]>
+
+  export type CrateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    drinkId?: boolean
+    defaultPfandType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    drink?: boolean | DrinkDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crate"]>
+
+  export type CrateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    drinkId?: boolean
+    defaultPfandType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    drink?: boolean | DrinkDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crate"]>
+
+  export type CrateSelectScalar = {
+    id?: boolean
+    barcode?: boolean
+    name?: boolean
+    drinkId?: boolean
+    defaultPfandType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CrateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "name" | "drinkId" | "defaultPfandType" | "createdAt" | "updatedAt", ExtArgs["result"]["crate"]>
+  export type CrateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drink?: boolean | DrinkDefaultArgs<ExtArgs>
+  }
+  export type CrateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drink?: boolean | DrinkDefaultArgs<ExtArgs>
+  }
+  export type CrateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drink?: boolean | DrinkDefaultArgs<ExtArgs>
+  }
+
+  export type $CratePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Crate"
+    objects: {
+      drink: Prisma.$DrinkPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      barcode: string
+      name: string
+      drinkId: number
+      defaultPfandType: $Enums.PfandType
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["crate"]>
+    composites: {}
+  }
+
+  type CrateGetPayload<S extends boolean | null | undefined | CrateDefaultArgs> = $Result.GetResult<Prisma.$CratePayload, S>
+
+  type CrateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CrateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CrateCountAggregateInputType | true
+    }
+
+  export interface CrateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Crate'], meta: { name: 'Crate' } }
+    /**
+     * Find zero or one Crate that matches the filter.
+     * @param {CrateFindUniqueArgs} args - Arguments to find a Crate
+     * @example
+     * // Get one Crate
+     * const crate = await prisma.crate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CrateFindUniqueArgs>(args: SelectSubset<T, CrateFindUniqueArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Crate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CrateFindUniqueOrThrowArgs} args - Arguments to find a Crate
+     * @example
+     * // Get one Crate
+     * const crate = await prisma.crate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CrateFindUniqueOrThrowArgs>(args: SelectSubset<T, CrateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Crate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateFindFirstArgs} args - Arguments to find a Crate
+     * @example
+     * // Get one Crate
+     * const crate = await prisma.crate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CrateFindFirstArgs>(args?: SelectSubset<T, CrateFindFirstArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Crate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateFindFirstOrThrowArgs} args - Arguments to find a Crate
+     * @example
+     * // Get one Crate
+     * const crate = await prisma.crate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CrateFindFirstOrThrowArgs>(args?: SelectSubset<T, CrateFindFirstOrThrowArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Crates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Crates
+     * const crates = await prisma.crate.findMany()
+     * 
+     * // Get first 10 Crates
+     * const crates = await prisma.crate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const crateWithIdOnly = await prisma.crate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CrateFindManyArgs>(args?: SelectSubset<T, CrateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Crate.
+     * @param {CrateCreateArgs} args - Arguments to create a Crate.
+     * @example
+     * // Create one Crate
+     * const Crate = await prisma.crate.create({
+     *   data: {
+     *     // ... data to create a Crate
+     *   }
+     * })
+     * 
+     */
+    create<T extends CrateCreateArgs>(args: SelectSubset<T, CrateCreateArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Crates.
+     * @param {CrateCreateManyArgs} args - Arguments to create many Crates.
+     * @example
+     * // Create many Crates
+     * const crate = await prisma.crate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CrateCreateManyArgs>(args?: SelectSubset<T, CrateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Crates and returns the data saved in the database.
+     * @param {CrateCreateManyAndReturnArgs} args - Arguments to create many Crates.
+     * @example
+     * // Create many Crates
+     * const crate = await prisma.crate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Crates and only return the `id`
+     * const crateWithIdOnly = await prisma.crate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CrateCreateManyAndReturnArgs>(args?: SelectSubset<T, CrateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Crate.
+     * @param {CrateDeleteArgs} args - Arguments to delete one Crate.
+     * @example
+     * // Delete one Crate
+     * const Crate = await prisma.crate.delete({
+     *   where: {
+     *     // ... filter to delete one Crate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CrateDeleteArgs>(args: SelectSubset<T, CrateDeleteArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Crate.
+     * @param {CrateUpdateArgs} args - Arguments to update one Crate.
+     * @example
+     * // Update one Crate
+     * const crate = await prisma.crate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CrateUpdateArgs>(args: SelectSubset<T, CrateUpdateArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Crates.
+     * @param {CrateDeleteManyArgs} args - Arguments to filter Crates to delete.
+     * @example
+     * // Delete a few Crates
+     * const { count } = await prisma.crate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CrateDeleteManyArgs>(args?: SelectSubset<T, CrateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Crates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Crates
+     * const crate = await prisma.crate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CrateUpdateManyArgs>(args: SelectSubset<T, CrateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Crates and returns the data updated in the database.
+     * @param {CrateUpdateManyAndReturnArgs} args - Arguments to update many Crates.
+     * @example
+     * // Update many Crates
+     * const crate = await prisma.crate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Crates and only return the `id`
+     * const crateWithIdOnly = await prisma.crate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CrateUpdateManyAndReturnArgs>(args: SelectSubset<T, CrateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Crate.
+     * @param {CrateUpsertArgs} args - Arguments to update or create a Crate.
+     * @example
+     * // Update or create a Crate
+     * const crate = await prisma.crate.upsert({
+     *   create: {
+     *     // ... data to create a Crate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Crate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CrateUpsertArgs>(args: SelectSubset<T, CrateUpsertArgs<ExtArgs>>): Prisma__CrateClient<$Result.GetResult<Prisma.$CratePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Crates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateCountArgs} args - Arguments to filter Crates to count.
+     * @example
+     * // Count the number of Crates
+     * const count = await prisma.crate.count({
+     *   where: {
+     *     // ... the filter for the Crates we want to count
+     *   }
+     * })
+    **/
+    count<T extends CrateCountArgs>(
+      args?: Subset<T, CrateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CrateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Crate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CrateAggregateArgs>(args: Subset<T, CrateAggregateArgs>): Prisma.PrismaPromise<GetCrateAggregateType<T>>
+
+    /**
+     * Group by Crate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CrateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CrateGroupByArgs['orderBy'] }
+        : { orderBy?: CrateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CrateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCrateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Crate model
+   */
+  readonly fields: CrateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Crate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CrateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    drink<T extends DrinkDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DrinkDefaultArgs<ExtArgs>>): Prisma__DrinkClient<$Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Crate model
+   */
+  interface CrateFieldRefs {
+    readonly id: FieldRef<"Crate", 'Int'>
+    readonly barcode: FieldRef<"Crate", 'String'>
+    readonly name: FieldRef<"Crate", 'String'>
+    readonly drinkId: FieldRef<"Crate", 'Int'>
+    readonly defaultPfandType: FieldRef<"Crate", 'PfandType'>
+    readonly createdAt: FieldRef<"Crate", 'DateTime'>
+    readonly updatedAt: FieldRef<"Crate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Crate findUnique
+   */
+  export type CrateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * Filter, which Crate to fetch.
+     */
+    where: CrateWhereUniqueInput
+  }
+
+  /**
+   * Crate findUniqueOrThrow
+   */
+  export type CrateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * Filter, which Crate to fetch.
+     */
+    where: CrateWhereUniqueInput
+  }
+
+  /**
+   * Crate findFirst
+   */
+  export type CrateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * Filter, which Crate to fetch.
+     */
+    where?: CrateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Crates to fetch.
+     */
+    orderBy?: CrateOrderByWithRelationInput | CrateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Crates.
+     */
+    cursor?: CrateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Crates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Crates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Crates.
+     */
+    distinct?: CrateScalarFieldEnum | CrateScalarFieldEnum[]
+  }
+
+  /**
+   * Crate findFirstOrThrow
+   */
+  export type CrateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * Filter, which Crate to fetch.
+     */
+    where?: CrateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Crates to fetch.
+     */
+    orderBy?: CrateOrderByWithRelationInput | CrateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Crates.
+     */
+    cursor?: CrateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Crates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Crates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Crates.
+     */
+    distinct?: CrateScalarFieldEnum | CrateScalarFieldEnum[]
+  }
+
+  /**
+   * Crate findMany
+   */
+  export type CrateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * Filter, which Crates to fetch.
+     */
+    where?: CrateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Crates to fetch.
+     */
+    orderBy?: CrateOrderByWithRelationInput | CrateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Crates.
+     */
+    cursor?: CrateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Crates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Crates.
+     */
+    skip?: number
+    distinct?: CrateScalarFieldEnum | CrateScalarFieldEnum[]
+  }
+
+  /**
+   * Crate create
+   */
+  export type CrateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Crate.
+     */
+    data: XOR<CrateCreateInput, CrateUncheckedCreateInput>
+  }
+
+  /**
+   * Crate createMany
+   */
+  export type CrateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Crates.
+     */
+    data: CrateCreateManyInput | CrateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Crate createManyAndReturn
+   */
+  export type CrateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * The data used to create many Crates.
+     */
+    data: CrateCreateManyInput | CrateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Crate update
+   */
+  export type CrateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Crate.
+     */
+    data: XOR<CrateUpdateInput, CrateUncheckedUpdateInput>
+    /**
+     * Choose, which Crate to update.
+     */
+    where: CrateWhereUniqueInput
+  }
+
+  /**
+   * Crate updateMany
+   */
+  export type CrateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Crates.
+     */
+    data: XOR<CrateUpdateManyMutationInput, CrateUncheckedUpdateManyInput>
+    /**
+     * Filter which Crates to update
+     */
+    where?: CrateWhereInput
+    /**
+     * Limit how many Crates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Crate updateManyAndReturn
+   */
+  export type CrateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * The data used to update Crates.
+     */
+    data: XOR<CrateUpdateManyMutationInput, CrateUncheckedUpdateManyInput>
+    /**
+     * Filter which Crates to update
+     */
+    where?: CrateWhereInput
+    /**
+     * Limit how many Crates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Crate upsert
+   */
+  export type CrateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Crate to update in case it exists.
+     */
+    where: CrateWhereUniqueInput
+    /**
+     * In case the Crate found by the `where` argument doesn't exist, create a new Crate with this data.
+     */
+    create: XOR<CrateCreateInput, CrateUncheckedCreateInput>
+    /**
+     * In case the Crate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CrateUpdateInput, CrateUncheckedUpdateInput>
+  }
+
+  /**
+   * Crate delete
+   */
+  export type CrateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
+    /**
+     * Filter which Crate to delete.
+     */
+    where: CrateWhereUniqueInput
+  }
+
+  /**
+   * Crate deleteMany
+   */
+  export type CrateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Crates to delete
+     */
+    where?: CrateWhereInput
+    /**
+     * Limit how many Crates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Crate without action
+   */
+  export type CrateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Crate
+     */
+    select?: CrateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Crate
+     */
+    omit?: CrateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrateInclude<ExtArgs> | null
   }
 
 
@@ -3074,6 +4392,19 @@ export namespace Prisma {
   };
 
   export type DrinkScalarFieldEnum = (typeof DrinkScalarFieldEnum)[keyof typeof DrinkScalarFieldEnum]
+
+
+  export const CrateScalarFieldEnum: {
+    id: 'id',
+    barcode: 'barcode',
+    name: 'name',
+    drinkId: 'drinkId',
+    defaultPfandType: 'defaultPfandType',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CrateScalarFieldEnum = (typeof CrateScalarFieldEnum)[keyof typeof CrateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3225,6 +4556,7 @@ export namespace Prisma {
     openedQuantity?: IntFilter<"Drink"> | number
     createdAt?: DateTimeFilter<"Drink"> | Date | string
     updatedAt?: DateTimeFilter<"Drink"> | Date | string
+    crates?: CrateListRelationFilter
   }
 
   export type DrinkOrderByWithRelationInput = {
@@ -3235,6 +4567,7 @@ export namespace Prisma {
     openedQuantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    crates?: CrateOrderByRelationAggregateInput
   }
 
   export type DrinkWhereUniqueInput = Prisma.AtLeast<{
@@ -3248,6 +4581,7 @@ export namespace Prisma {
     openedQuantity?: IntFilter<"Drink"> | number
     createdAt?: DateTimeFilter<"Drink"> | Date | string
     updatedAt?: DateTimeFilter<"Drink"> | Date | string
+    crates?: CrateListRelationFilter
   }, "id" | "barcode">
 
   export type DrinkOrderByWithAggregationInput = {
@@ -3276,6 +4610,73 @@ export namespace Prisma {
     openedQuantity?: IntWithAggregatesFilter<"Drink"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Drink"> | Date | string
+  }
+
+  export type CrateWhereInput = {
+    AND?: CrateWhereInput | CrateWhereInput[]
+    OR?: CrateWhereInput[]
+    NOT?: CrateWhereInput | CrateWhereInput[]
+    id?: IntFilter<"Crate"> | number
+    barcode?: StringFilter<"Crate"> | string
+    name?: StringFilter<"Crate"> | string
+    drinkId?: IntFilter<"Crate"> | number
+    defaultPfandType?: EnumPfandTypeFilter<"Crate"> | $Enums.PfandType
+    createdAt?: DateTimeFilter<"Crate"> | Date | string
+    updatedAt?: DateTimeFilter<"Crate"> | Date | string
+    drink?: XOR<DrinkScalarRelationFilter, DrinkWhereInput>
+  }
+
+  export type CrateOrderByWithRelationInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    drinkId?: SortOrder
+    defaultPfandType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    drink?: DrinkOrderByWithRelationInput
+  }
+
+  export type CrateWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    barcode?: string
+    AND?: CrateWhereInput | CrateWhereInput[]
+    OR?: CrateWhereInput[]
+    NOT?: CrateWhereInput | CrateWhereInput[]
+    name?: StringFilter<"Crate"> | string
+    drinkId?: IntFilter<"Crate"> | number
+    defaultPfandType?: EnumPfandTypeFilter<"Crate"> | $Enums.PfandType
+    createdAt?: DateTimeFilter<"Crate"> | Date | string
+    updatedAt?: DateTimeFilter<"Crate"> | Date | string
+    drink?: XOR<DrinkScalarRelationFilter, DrinkWhereInput>
+  }, "id" | "barcode">
+
+  export type CrateOrderByWithAggregationInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    drinkId?: SortOrder
+    defaultPfandType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CrateCountOrderByAggregateInput
+    _avg?: CrateAvgOrderByAggregateInput
+    _max?: CrateMaxOrderByAggregateInput
+    _min?: CrateMinOrderByAggregateInput
+    _sum?: CrateSumOrderByAggregateInput
+  }
+
+  export type CrateScalarWhereWithAggregatesInput = {
+    AND?: CrateScalarWhereWithAggregatesInput | CrateScalarWhereWithAggregatesInput[]
+    OR?: CrateScalarWhereWithAggregatesInput[]
+    NOT?: CrateScalarWhereWithAggregatesInput | CrateScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Crate"> | number
+    barcode?: StringWithAggregatesFilter<"Crate"> | string
+    name?: StringWithAggregatesFilter<"Crate"> | string
+    drinkId?: IntWithAggregatesFilter<"Crate"> | number
+    defaultPfandType?: EnumPfandTypeWithAggregatesFilter<"Crate"> | $Enums.PfandType
+    createdAt?: DateTimeWithAggregatesFilter<"Crate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Crate"> | Date | string
   }
 
   export type PfandCreateInput = {
@@ -3324,6 +4725,7 @@ export namespace Prisma {
     openedQuantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    crates?: CrateCreateNestedManyWithoutDrinkInput
   }
 
   export type DrinkUncheckedCreateInput = {
@@ -3334,6 +4736,7 @@ export namespace Prisma {
     openedQuantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    crates?: CrateUncheckedCreateNestedManyWithoutDrinkInput
   }
 
   export type DrinkUpdateInput = {
@@ -3343,6 +4746,7 @@ export namespace Prisma {
     openedQuantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    crates?: CrateUpdateManyWithoutDrinkNestedInput
   }
 
   export type DrinkUncheckedUpdateInput = {
@@ -3353,6 +4757,7 @@ export namespace Prisma {
     openedQuantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    crates?: CrateUncheckedUpdateManyWithoutDrinkNestedInput
   }
 
   export type DrinkCreateManyInput = {
@@ -3380,6 +4785,72 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     openedQuantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrateCreateInput = {
+    barcode: string
+    name: string
+    defaultPfandType: $Enums.PfandType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    drink: DrinkCreateNestedOneWithoutCratesInput
+  }
+
+  export type CrateUncheckedCreateInput = {
+    id?: number
+    barcode: string
+    name: string
+    drinkId: number
+    defaultPfandType: $Enums.PfandType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CrateUpdateInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    drink?: DrinkUpdateOneRequiredWithoutCratesNestedInput
+  }
+
+  export type CrateUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    drinkId?: IntFieldUpdateOperationsInput | number
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrateCreateManyInput = {
+    id?: number
+    barcode: string
+    name: string
+    drinkId: number
+    defaultPfandType: $Enums.PfandType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CrateUpdateManyMutationInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrateUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    drinkId?: IntFieldUpdateOperationsInput | number
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3482,6 +4953,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type CrateListRelationFilter = {
+    every?: CrateWhereInput
+    some?: CrateWhereInput
+    none?: CrateWhereInput
+  }
+
+  export type CrateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DrinkCountOrderByAggregateInput = {
     id?: SortOrder
     barcode?: SortOrder
@@ -3556,6 +5037,51 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DrinkScalarRelationFilter = {
+    is?: DrinkWhereInput
+    isNot?: DrinkWhereInput
+  }
+
+  export type CrateCountOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    drinkId?: SortOrder
+    defaultPfandType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CrateAvgOrderByAggregateInput = {
+    id?: SortOrder
+    drinkId?: SortOrder
+  }
+
+  export type CrateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    drinkId?: SortOrder
+    defaultPfandType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CrateMinOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    name?: SortOrder
+    drinkId?: SortOrder
+    defaultPfandType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CrateSumOrderByAggregateInput = {
+    id?: SortOrder
+    drinkId?: SortOrder
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -3568,12 +5094,68 @@ export namespace Prisma {
     set?: $Enums.PfandType
   }
 
+  export type CrateCreateNestedManyWithoutDrinkInput = {
+    create?: XOR<CrateCreateWithoutDrinkInput, CrateUncheckedCreateWithoutDrinkInput> | CrateCreateWithoutDrinkInput[] | CrateUncheckedCreateWithoutDrinkInput[]
+    connectOrCreate?: CrateCreateOrConnectWithoutDrinkInput | CrateCreateOrConnectWithoutDrinkInput[]
+    createMany?: CrateCreateManyDrinkInputEnvelope
+    connect?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+  }
+
+  export type CrateUncheckedCreateNestedManyWithoutDrinkInput = {
+    create?: XOR<CrateCreateWithoutDrinkInput, CrateUncheckedCreateWithoutDrinkInput> | CrateCreateWithoutDrinkInput[] | CrateUncheckedCreateWithoutDrinkInput[]
+    connectOrCreate?: CrateCreateOrConnectWithoutDrinkInput | CrateCreateOrConnectWithoutDrinkInput[]
+    createMany?: CrateCreateManyDrinkInputEnvelope
+    connect?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type CrateUpdateManyWithoutDrinkNestedInput = {
+    create?: XOR<CrateCreateWithoutDrinkInput, CrateUncheckedCreateWithoutDrinkInput> | CrateCreateWithoutDrinkInput[] | CrateUncheckedCreateWithoutDrinkInput[]
+    connectOrCreate?: CrateCreateOrConnectWithoutDrinkInput | CrateCreateOrConnectWithoutDrinkInput[]
+    upsert?: CrateUpsertWithWhereUniqueWithoutDrinkInput | CrateUpsertWithWhereUniqueWithoutDrinkInput[]
+    createMany?: CrateCreateManyDrinkInputEnvelope
+    set?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    disconnect?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    delete?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    connect?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    update?: CrateUpdateWithWhereUniqueWithoutDrinkInput | CrateUpdateWithWhereUniqueWithoutDrinkInput[]
+    updateMany?: CrateUpdateManyWithWhereWithoutDrinkInput | CrateUpdateManyWithWhereWithoutDrinkInput[]
+    deleteMany?: CrateScalarWhereInput | CrateScalarWhereInput[]
+  }
+
+  export type CrateUncheckedUpdateManyWithoutDrinkNestedInput = {
+    create?: XOR<CrateCreateWithoutDrinkInput, CrateUncheckedCreateWithoutDrinkInput> | CrateCreateWithoutDrinkInput[] | CrateUncheckedCreateWithoutDrinkInput[]
+    connectOrCreate?: CrateCreateOrConnectWithoutDrinkInput | CrateCreateOrConnectWithoutDrinkInput[]
+    upsert?: CrateUpsertWithWhereUniqueWithoutDrinkInput | CrateUpsertWithWhereUniqueWithoutDrinkInput[]
+    createMany?: CrateCreateManyDrinkInputEnvelope
+    set?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    disconnect?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    delete?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    connect?: CrateWhereUniqueInput | CrateWhereUniqueInput[]
+    update?: CrateUpdateWithWhereUniqueWithoutDrinkInput | CrateUpdateWithWhereUniqueWithoutDrinkInput[]
+    updateMany?: CrateUpdateManyWithWhereWithoutDrinkInput | CrateUpdateManyWithWhereWithoutDrinkInput[]
+    deleteMany?: CrateScalarWhereInput | CrateScalarWhereInput[]
+  }
+
+  export type DrinkCreateNestedOneWithoutCratesInput = {
+    create?: XOR<DrinkCreateWithoutCratesInput, DrinkUncheckedCreateWithoutCratesInput>
+    connectOrCreate?: DrinkCreateOrConnectWithoutCratesInput
+    connect?: DrinkWhereUniqueInput
+  }
+
+  export type DrinkUpdateOneRequiredWithoutCratesNestedInput = {
+    create?: XOR<DrinkCreateWithoutCratesInput, DrinkUncheckedCreateWithoutCratesInput>
+    connectOrCreate?: DrinkCreateOrConnectWithoutCratesInput
+    upsert?: DrinkUpsertWithoutCratesInput
+    connect?: DrinkWhereUniqueInput
+    update?: XOR<XOR<DrinkUpdateToOneWithWhereWithoutCratesInput, DrinkUpdateWithoutCratesInput>, DrinkUncheckedUpdateWithoutCratesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3685,6 +5267,151 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type CrateCreateWithoutDrinkInput = {
+    barcode: string
+    name: string
+    defaultPfandType: $Enums.PfandType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CrateUncheckedCreateWithoutDrinkInput = {
+    id?: number
+    barcode: string
+    name: string
+    defaultPfandType: $Enums.PfandType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CrateCreateOrConnectWithoutDrinkInput = {
+    where: CrateWhereUniqueInput
+    create: XOR<CrateCreateWithoutDrinkInput, CrateUncheckedCreateWithoutDrinkInput>
+  }
+
+  export type CrateCreateManyDrinkInputEnvelope = {
+    data: CrateCreateManyDrinkInput | CrateCreateManyDrinkInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CrateUpsertWithWhereUniqueWithoutDrinkInput = {
+    where: CrateWhereUniqueInput
+    update: XOR<CrateUpdateWithoutDrinkInput, CrateUncheckedUpdateWithoutDrinkInput>
+    create: XOR<CrateCreateWithoutDrinkInput, CrateUncheckedCreateWithoutDrinkInput>
+  }
+
+  export type CrateUpdateWithWhereUniqueWithoutDrinkInput = {
+    where: CrateWhereUniqueInput
+    data: XOR<CrateUpdateWithoutDrinkInput, CrateUncheckedUpdateWithoutDrinkInput>
+  }
+
+  export type CrateUpdateManyWithWhereWithoutDrinkInput = {
+    where: CrateScalarWhereInput
+    data: XOR<CrateUpdateManyMutationInput, CrateUncheckedUpdateManyWithoutDrinkInput>
+  }
+
+  export type CrateScalarWhereInput = {
+    AND?: CrateScalarWhereInput | CrateScalarWhereInput[]
+    OR?: CrateScalarWhereInput[]
+    NOT?: CrateScalarWhereInput | CrateScalarWhereInput[]
+    id?: IntFilter<"Crate"> | number
+    barcode?: StringFilter<"Crate"> | string
+    name?: StringFilter<"Crate"> | string
+    drinkId?: IntFilter<"Crate"> | number
+    defaultPfandType?: EnumPfandTypeFilter<"Crate"> | $Enums.PfandType
+    createdAt?: DateTimeFilter<"Crate"> | Date | string
+    updatedAt?: DateTimeFilter<"Crate"> | Date | string
+  }
+
+  export type DrinkCreateWithoutCratesInput = {
+    barcode: string
+    name: string
+    quantity?: number
+    openedQuantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DrinkUncheckedCreateWithoutCratesInput = {
+    id?: number
+    barcode: string
+    name: string
+    quantity?: number
+    openedQuantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DrinkCreateOrConnectWithoutCratesInput = {
+    where: DrinkWhereUniqueInput
+    create: XOR<DrinkCreateWithoutCratesInput, DrinkUncheckedCreateWithoutCratesInput>
+  }
+
+  export type DrinkUpsertWithoutCratesInput = {
+    update: XOR<DrinkUpdateWithoutCratesInput, DrinkUncheckedUpdateWithoutCratesInput>
+    create: XOR<DrinkCreateWithoutCratesInput, DrinkUncheckedCreateWithoutCratesInput>
+    where?: DrinkWhereInput
+  }
+
+  export type DrinkUpdateToOneWithWhereWithoutCratesInput = {
+    where?: DrinkWhereInput
+    data: XOR<DrinkUpdateWithoutCratesInput, DrinkUncheckedUpdateWithoutCratesInput>
+  }
+
+  export type DrinkUpdateWithoutCratesInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    openedQuantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrinkUncheckedUpdateWithoutCratesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    openedQuantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrateCreateManyDrinkInput = {
+    id?: number
+    barcode: string
+    name: string
+    defaultPfandType: $Enums.PfandType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CrateUpdateWithoutDrinkInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrateUncheckedUpdateWithoutDrinkInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrateUncheckedUpdateManyWithoutDrinkInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    defaultPfandType?: EnumPfandTypeFieldUpdateOperationsInput | $Enums.PfandType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

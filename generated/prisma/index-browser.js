@@ -137,6 +137,16 @@ exports.Prisma.DrinkScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CrateScalarFieldEnum = {
+  id: 'id',
+  barcode: 'barcode',
+  name: 'name',
+  drinkId: 'drinkId',
+  defaultPfandType: 'defaultPfandType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -154,7 +164,8 @@ exports.PfandType = exports.$Enums.PfandType = {
 
 exports.Prisma.ModelName = {
   Pfand: 'Pfand',
-  Drink: 'Drink'
+  Drink: 'Drink',
+  Crate: 'Crate'
 };
 
 /**

@@ -7,6 +7,8 @@ import {DrinkCard} from "./drink-card";
 import {PfandCard} from "./pfand-card";
 import {DrinkDialog} from "./drink-dialog";
 import {CreateDrinkDialog} from "./create-drink-dialog";
+import {CreateCrateDialog} from "./create-crate-dialog";
+import {PfandSelectionDialog} from "./pfand-selection-dialog";
 import type {Pfand} from '@/models/pfand.model'
 
 export function SmartFridge() {
@@ -19,6 +21,13 @@ export function SmartFridge() {
         openedQuantity: number;
     } | null>(null);
     const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+    const [isCreateCrateDialogOpen, setIsCreateCrateDialogOpen] = useState(false);
+    const [isPfandSelectionOpen, setIsPfandSelectionOpen] = useState(false);
+    const [scannedCrateInfo, setScannedCrateInfo] = useState<{
+        crateName: string;
+        drinkName: string;
+        defaultPfandType: string;
+    } | null>(null);
     const [scannedBarcode, setScannedBarcode] = useState<string>("");
 
     const {data: drinks, refetch} = api.drink.getAll.useQuery();
@@ -52,6 +61,19 @@ export function SmartFridge() {
     });
 
     const {data: pfandData, refetch: refetchPfand} = api.drink.getPfand.useQuery();
+    const {data: crates, refetch: refetchCrates} = api.drink.getAllCrates.useQuery();
+
+    const scanCrateMutation = api.drink.scanCrate.useMutation({
+        onSuccess: (crate) => {
+            void refetch();
+            setScannedCrateInfo({
+                crateName: crate.name,
+                drinkName: crate.drink.name,
+                defaultPfandType: crate.defaultPfandType,
+            });
+            setIsPfandSelectionOpen(true);
+        },
+    });
 
     const einweg: Pfand[] = pfandData?.pfand.einweg !== undefined ? [pfandData?.pfand.einweg] : [] as Pfand[]
     const mehrweg: Pfand[] = pfandData?.pfand.mehrweg !== undefined ? [pfandData?.pfand.mehrweg] : [] as Pfand[]
@@ -119,13 +141,25 @@ export function SmartFridge() {
     const handleScan = async (barcode: string) => {
         setIsScannerOpen(false);
 
+        // First, check if it's a crate barcode
+        const crate = crates?.find((c) => c.barcode === barcode);
+        if (crate) {
+            const closedQuantity = crate.drink.quantity - crate.drink.openedQuantity;
+            if (closedQuantity <= 0) {
+                alert("Keine geschlossenen Flaschen mehr in diesem Kasten verfügbar.");
+                return;
+            }
+            scanCrateMutation.mutate({crateId: crate.id});
+            return;
+        }
+
         // Try to find the drink
         const drink = drinks?.find((d) => d.barcode === barcode);
 
         if (drink) {
             setSelectedDrink(drink);
         } else {
-            // Drink doesn't exist, open create dialog
+            // Barcode doesn't exist, open create dialog
             setScannedBarcode(barcode);
             setIsCreateDialogOpen(true);
         }
@@ -179,6 +213,16 @@ export function SmartFridge() {
         setIsCreateDialogOpen(false);
         setScannedBarcode("");
         void refetch();
+    };
+
+    const handleCreateCrateSuccess = () => {
+        setIsCreateCrateDialogOpen(false);
+        setScannedBarcode("");
+        void refetchCrates();
+    };
+
+    const handlePfandSelectionSuccess = () => {
+        void refetchPfand();
     };
 
     return (
@@ -362,7 +406,38 @@ export function SmartFridge() {
                 }}
                 barcode={scannedBarcode}
                 onSuccess={handleCreateSuccess}
+                onCreateCrate={() => {
+                    setIsCreateDialogOpen(false);
+                    setIsCreateCrateDialogOpen(true);
+                }}
             />
+
+            {/* Create Crate Dialog */}
+            <CreateCrateDialog
+                isOpen={isCreateCrateDialogOpen}
+                onClose={() => {
+                    setIsCreateCrateDialogOpen(false);
+                    setScannedBarcode("");
+                }}
+                barcode={scannedBarcode}
+                onSuccess={handleCreateCrateSuccess}
+            />
+
+            {/* Pfand Selection Dialog (after crate scan) */}
+            {scannedCrateInfo && (
+                <PfandSelectionDialog
+                    isOpen={isPfandSelectionOpen}
+                    onClose={() => {
+                        setIsPfandSelectionOpen(false);
+                        setScannedCrateInfo(null);
+                    }}
+                    crateName={scannedCrateInfo.crateName}
+                    drinkName={scannedCrateInfo.drinkName}
+                    defaultPfandType={scannedCrateInfo.defaultPfandType}
+                    pfandData={pfandData}
+                    onSuccess={handlePfandSelectionSuccess}
+                />
+            )}
         </div>
     );
 }

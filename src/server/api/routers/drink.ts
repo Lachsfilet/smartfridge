@@ -282,4 +282,82 @@ export const drinkRouter = createTRPCRouter({
                 }
             })
         }),
+
+    // Get all crates
+    getAllCrates: publicProcedure.query(async ({ctx}) => {
+        return ctx.db.crate.findMany({
+            include: {drink: true},
+            orderBy: [{name: "asc"}],
+        });
+    }),
+
+    // Get crate by barcode
+    getCrateByBarcode: publicProcedure
+        .input(z.object({barcode: z.string()}))
+        .query(async ({ctx, input}) => {
+            return ctx.db.crate.findUnique({
+                where: {barcode: input.barcode},
+                include: {drink: true},
+            });
+        }),
+
+    // Create a new crate
+    createCrate: publicProcedure
+        .input(
+            z.object({
+                barcode: z.string().min(1),
+                name: z.string().min(1),
+                drinkId: z.number(),
+                defaultPfandType: z.enum(["EINWEG", "MEHRWEG", "GLAS"]),
+            })
+        )
+        .mutation(async ({ctx, input}) => {
+            return ctx.db.crate.create({
+                data: {
+                    barcode: input.barcode,
+                    name: input.name,
+                    drinkId: input.drinkId,
+                    defaultPfandType: input.defaultPfandType,
+                },
+                include: {drink: true},
+            });
+        }),
+
+    // Scan a crate: decrement closed bottle count by 1
+    scanCrate: publicProcedure
+        .input(z.object({crateId: z.number()}))
+        .mutation(async ({ctx, input}) => {
+            const crate = await ctx.db.crate.findUnique({
+                where: {id: input.crateId},
+                include: {drink: true},
+            });
+
+            if (!crate) {
+                throw new Error("Crate not found");
+            }
+
+            const closedQuantity = crate.drink.quantity - crate.drink.openedQuantity;
+            if (closedQuantity <= 0) {
+                throw new Error("No closed bottles available in this crate");
+            }
+
+            // Decrement the drink quantity by 1 (remove one closed bottle)
+            await ctx.db.drink.update({
+                where: {id: crate.drink.id},
+                data: {
+                    quantity: crate.drink.quantity - 1,
+                },
+            });
+
+            return crate;
+        }),
+
+    // Delete a crate
+    deleteCrate: publicProcedure
+        .input(z.object({id: z.number()}))
+        .mutation(async ({ctx, input}) => {
+            return ctx.db.crate.delete({
+                where: {id: input.id},
+            });
+        }),
 });

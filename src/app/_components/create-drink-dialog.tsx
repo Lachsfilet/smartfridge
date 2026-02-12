@@ -8,6 +8,7 @@ interface CreateDrinkDialogProps {
   onClose: () => void;
   barcode: string;
   onSuccess: () => void;
+  onCreateCrate?: () => void;
 }
 
 export function CreateDrinkDialog({
@@ -15,6 +16,7 @@ export function CreateDrinkDialog({
   onClose,
   barcode,
   onSuccess,
+  onCreateCrate,
 }: CreateDrinkDialogProps) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -63,6 +65,20 @@ export function CreateDrinkDialog({
             Barcode <span className="font-mono font-semibold">{barcode}</span>{" "}
             wurde nicht in der Datenbank gefunden.
           </p>
+
+          {onCreateCrate && (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                onCreateCrate();
+              }}
+              className="w-full mb-4 bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition-colors font-medium text-sm flex items-center justify-center gap-2"
+            >
+              <span>📦</span>
+              Stattdessen als Kasten registrieren
+            </button>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Input */}
