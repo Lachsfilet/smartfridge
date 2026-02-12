@@ -139,7 +139,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/lachsfilet/Workspace/smartfridge/generated/prisma",
+      "value": "/home/runner/work/smartfridge/smartfridge/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -153,12 +153,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/lachsfilet/Workspace/smartfridge/prisma/schema.prisma",
+    "sourceFilePath": "/home/runner/work/smartfridge/smartfridge/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.19.1",
@@ -167,6 +166,8 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
+  "ciName": "GitHub Actions",
   "inlineDatasources": {
     "db": {
       "url": {
