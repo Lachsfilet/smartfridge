@@ -65,7 +65,7 @@ fun SmartFridgeWatchApp(viewModel: SmartFridgeViewModel = viewModel()) {
             ) {
                 item {
                     Card(
-                        onClick = {},
+                        onClick = viewModel::refresh,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 8.dp, vertical = 4.dp),
@@ -117,7 +117,7 @@ fun DrinkCard(
     onMarkOpened: () -> Unit,
 ) {
     Card(
-        onClick = {},
+        onClick = onMarkOpened,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 4.dp),

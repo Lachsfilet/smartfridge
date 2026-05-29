@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 data class SmartFridgeUiState(
@@ -67,12 +68,27 @@ class SmartFridgeViewModel(
 
     private fun mutateOptimistically(drinkId: Int, quantityDelta: Int, openedDelta: Int) {
         val before = _uiState.value.drinks
+        var quantityValidationFailed = false
         val updated = before.map { drink ->
             if (drink.id != drinkId) return@map drink
 
             val newQuantity = (drink.quantity + quantityDelta).coerceAtLeast(0)
-            val newOpened = (drink.openedQuantity + openedDelta).coerceIn(0, newQuantity)
+            val newOpened = if (openedDelta == 0) {
+                if (newQuantity < drink.openedQuantity) {
+                    quantityValidationFailed = true
+                }
+                drink.openedQuantity
+            } else {
+                (drink.openedQuantity + openedDelta).coerceIn(0, newQuantity)
+            }
             drink.copy(quantity = newQuantity, openedQuantity = newOpened)
+        }
+
+        if (quantityValidationFailed) {
+            _uiState.update { current ->
+                current.copy(errorMessage = "Cannot set closed bottles below opened count")
+            }
+            return
         }
 
         if (before == updated) return
@@ -95,7 +111,7 @@ class SmartFridgeViewModel(
 
     private fun startPolling() {
         viewModelScope.launch {
-            while (true) {
+            while (isActive) {
                 delay(60_000)
                 refresh()
             }

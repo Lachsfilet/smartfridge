@@ -52,7 +52,7 @@ class ApiClient(
     suspend fun getAllDrinks(): List<DrinkItem> {
         val response = httpClient.get("${normalizedBaseUrl()}/api/trpc/drink.getAll")
         val payload: JsonElement = response.body()
-        val dataJson = extractTrpcData(payload)
+        val dataJson = extractTrpcData(payload, operation = "drink.getAll")
         return json.decodeFromJsonElement(dataJson)
     }
 
@@ -70,7 +70,7 @@ class ApiClient(
         }
 
         val payload: JsonElement = response.body()
-        return json.decodeFromJsonElement(extractTrpcData(payload))
+        return json.decodeFromJsonElement(extractTrpcData(payload, operation = "drink.updateQuantity"))
     }
 
     suspend fun updateOpenedQuantity(id: Int, openedQuantity: Int): DrinkItem {
@@ -88,17 +88,21 @@ class ApiClient(
             }
 
         val payload: JsonElement = response.body()
-        return json.decodeFromJsonElement(extractTrpcData(payload))
+        return json.decodeFromJsonElement(extractTrpcData(payload, operation = "drink.updateOpenedQuantity"))
     }
 
     private fun normalizedBaseUrl(): String = baseUrl.trimEnd('/')
 
-    private fun extractTrpcData(payload: JsonElement): JsonElement {
-        val root = if (payload is JsonObject) payload else payload.jsonArray.first().jsonObject
+    private fun extractTrpcData(payload: JsonElement, operation: String): JsonElement {
+        val root = when (payload) {
+            is JsonObject -> payload
+            else -> payload.jsonArray.firstOrNull()?.jsonObject
+                ?: throw IllegalStateException("Invalid tRPC payload format for $operation: expected JsonObject or JsonArray")
+        }
         val result = root["result"]?.jsonObject
-            ?: throw IllegalStateException("Missing tRPC result payload")
+            ?: throw IllegalStateException("Missing tRPC result payload for $operation")
         val dataWrapper = result["data"]?.jsonObject
-            ?: throw IllegalStateException("Missing tRPC data payload")
+            ?: throw IllegalStateException("Missing tRPC data payload for $operation")
         return dataWrapper["json"] ?: JsonNull
     }
 }
