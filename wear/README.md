@@ -44,7 +44,7 @@ This repository is primarily a Next.js project. The Wear app is added as a stand
 For command-line builds:
 
 ```bash
-cd /tmp/workspace/Lachsfilet/smartfridge/wear
+cd wear
 ./gradlew build test
 ```
 
