@@ -151,7 +151,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/runner/work/smartfridge/smartfridge/generated/prisma",
+      "value": "/tmp/workspace/Lachsfilet/smartfridge/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -165,7 +165,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/runner/work/smartfridge/smartfridge/prisma/schema.prisma",
+    "sourceFilePath": "/tmp/workspace/Lachsfilet/smartfridge/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
