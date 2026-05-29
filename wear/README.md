@@ -41,6 +41,13 @@ This repository is primarily a Next.js project. The Wear app is added as a stand
 2. Sync Gradle.
 3. Run on a Wear OS 3+ emulator/device.
 
+For command-line builds:
+
+```bash
+cd /tmp/workspace/Lachsfilet/smartfridge/wear
+./gradlew build test
+```
+
 ## Testing
 
 - Verify API connectivity by ensuring drinks appear after launch.
