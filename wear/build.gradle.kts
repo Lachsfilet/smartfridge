@@ -8,7 +8,7 @@ plugins {
 val apiBaseUrl =
     (project.findProperty("SMARTFRIDGE_API_BASE_URL") as? String)
         ?: System.getenv("SMARTFRIDGE_API_BASE_URL")
-        ?: "https://smartfridge-eight.vercel.app"
+        ?: "https://smartfridge.lachsfilet.dev"
 
 android {
     namespace = "com.lachsfilet.smartfridge.wear"
